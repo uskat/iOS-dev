@@ -1,5 +1,6 @@
 import StorageService
 import UIKit
+import iOSIntPackage
 
 class DetailedPostViewController: UIViewController {
 
@@ -130,8 +131,8 @@ class DetailedPostViewController: UIViewController {
             postName.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
             postName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             postName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            //postName.heightAnchor.constraint(equalToConstant: 20)
-
+            //postName.heightAnchor.constraint(equalToConstant: 20),
+            
             postImage.topAnchor.constraint(equalTo: postName.bottomAnchor, constant: 12),
             postImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             postImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -166,5 +167,6 @@ class DetailedPostViewController: UIViewController {
         postDescription.text = post.description
         likes.text = "Likes: \(post.likes)"
         views.text = "Views: \(post.views)"
+
     }
 }

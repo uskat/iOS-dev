@@ -3,7 +3,7 @@ import UIKit
 import Foundation
 import AVFoundation
 
-//MARK: ===================================  HEADER ===================================
+//MARK: - HEADER
 extension UILabel {
     func animate(newText: String, characterDelay: TimeInterval) {
         DispatchQueue.main.async {
@@ -37,7 +37,7 @@ extension UIView {
         layer.add(animation, forKey: "kCATransitionFade")
 }   }
 
-//MARK: ===================================  LOGIN  ===================================
+//MARK: - LOGIN
 func placeHolder(_ textField: UITextField) -> String {
     switch textField.tag {
     case 1: return "Login"
@@ -147,11 +147,7 @@ func shakeMeBaby(_ shakedItem: UITextField) {
     shakedItem.layer.add(shake, forKey: "position")
 }
 
-
-//MARK: ================================== ProfileVC ==================================
-
-
-//MARK: ================================== MainTabBar =================================
+//MARK: - MainTabBar
 
 //код для проверки ориентации экрана и изменения видимости статус бара.
 public func checkOrientation() {

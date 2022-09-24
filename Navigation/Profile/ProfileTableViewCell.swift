@@ -1,5 +1,6 @@
 import StorageService
 import UIKit
+import iOSIntPackage
 
 class ProfileTableViewCell: UITableViewCell {
 
@@ -64,7 +65,7 @@ class ProfileTableViewCell: UITableViewCell {
         show()
         setupLikesGestures()
         self.backgroundColor = .clear
-        
+
     }
     
     required init?(coder: NSCoder) {
@@ -108,7 +109,11 @@ class ProfileTableViewCell: UITableViewCell {
     }
 
     func setupCell(_ post: Post) {
-        postImage.image = post.imageName
+        //меняем отображение фото с обычного на обработанное в ImageProcessor
+        //postImage.image = post.imageName //
+        let imageProcessor = ImageProcessor()
+        imageProcessor.processImage(sourceImage: post.imageName, filter: .fade) { postImage.image = $0 }
+        
         postName.text = post.author
         postDescription.text = post.description
         likes.text = "Likes: \(post.likes)"
