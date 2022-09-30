@@ -1,6 +1,7 @@
 
 import UIKit
 import AVFoundation
+import iOSIntPackage
 
 protocol AddLikeDelegate: AnyObject {
     func addLike(_ index: IndexPath, _ from: String)
@@ -101,6 +102,7 @@ extension ProfileViewController: UITableViewDataSource {
             cell.setupCell(posts[indexPath.row - 1])
             cell.index = indexPath
             cell.delegate = self
+        
             return cell
         }
     }

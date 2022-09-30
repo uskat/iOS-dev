@@ -1,7 +1,7 @@
 import StorageService
 import UIKit
 
-//MARK: ===================================  HEADER ===================================
+//MARK: - HEADER
 
 public var statusText = "Waiting for something....."
 
@@ -15,17 +15,17 @@ public var screenHeight: CGFloat {
 public let sizeProfileImage: CGFloat = absoluteWidth / 3
 
 
-//MARK: ===================================  LOGIN  ===================================
+//MARK: - LOGIN
 public let myLogin = "11@ru.ru"
 public let myPass = "111111"
 public var statusEntry = true
 public var errors: [ErrorInEmail] = []
 
-//MARK: ================================== ProfileVC ==================================
+//MARK: - ProfileVC
 public var posts: [Post] = Post.addPosts()
 
 
-//MARK: ================================== MainTabBar =================================
+//MARK: - MainTabBar
 
 public var topBarHeight: CGFloat = 0
 

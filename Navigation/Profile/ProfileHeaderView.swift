@@ -1,4 +1,4 @@
-
+import SnapKit
 import UIKit
 
 class ProfileHeaderView: UIView {
@@ -15,17 +15,16 @@ class ProfileHeaderView: UIView {
     }(UIView())
     
     let profileImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = sizeProfileImage / 2
-        imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.contentMode = .scaleAspectFill        //полное заполнение
-        imageView.image = UIImage(named: "obiwan")
-        imageView.clipsToBounds = true
-        imageView.isUserInteractionEnabled = true
-        return imageView
-    }()
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.layer.cornerRadius = sizeProfileImage / 2
+        $0.layer.borderWidth = 3
+        $0.layer.borderColor = UIColor.white.cgColor
+        $0.contentMode = .scaleAspectFill        //полное заполнение
+        $0.image = UIImage(named: "obiwan")
+        $0.clipsToBounds = true
+        $0.isUserInteractionEnabled = true
+        return $0
+    }(UIImageView())
     
     //======================================================================================================
     let buttonX: UIButton = {
@@ -43,59 +42,55 @@ class ProfileHeaderView: UIView {
     //======================================================================================================
 
     private let profileLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.text = "Obi Wan Kenobi"
-        label.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-        return label
-    }()
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        $0.text = "Obi Wan Kenobi"
+        $0.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+        return $0
+    }(UILabel())
 
     private lazy var mainButton: CustomButton = {
-        let button = CustomButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 4
-        button.backgroundColor = .systemBlue
-        button.setTitle("Set status", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Status is being recorded", for: .highlighted)
-        button.addTarget(self, action: #selector(tapMainButton), for: .touchUpInside)
-        button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.layer.shadowRadius = 4
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOpacity = 0.7
-        return button
-    }()
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.layer.cornerRadius = 4
+        $0.backgroundColor = .systemBlue
+        $0.setTitle("Set status", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.setTitle("Status is being recorded", for: .highlighted)
+        $0.addTarget(self, action: #selector(tapMainButton), for: .touchUpInside)
+        $0.layer.shadowOffset = CGSize(width: 4, height: 4)
+        $0.layer.shadowRadius = 4
+        $0.layer.shadowColor = UIColor.black.cgColor
+        $0.layer.shadowOpacity = 0.7
+        return $0
+    }(CustomButton())
     
     let profileStatus: UILabel = {
-        let status = UILabel()
-        status.translatesAutoresizingMaskIntoConstraints = false
-        status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        status.textColor = UIColor.darkGray
-        status.text = "Waiting for something....."
-        status.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-        return status
-    }()
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        $0.textColor = UIColor.darkGray
+        $0.text = "Waiting for something....."
+        $0.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+        return $0
+    }(UILabel())
 
     lazy var editStatus: UITextField = {
-        let status = UITextField()
-        status.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        status.translatesAutoresizingMaskIntoConstraints = false
-        status.placeholder = "Type new status"          //текстовая подсказка в поле textField
-        status.adjustsFontSizeToFitWidth = true         //уменьшение шрифта, если введенный текст не помещается
-        status.minimumFontSize = 10                     //до какого значения уменьшается шрифт
-        status.tag = 3
-        status.backgroundColor = .white
-        status.layer.cornerRadius = 12
-        status.layer.borderWidth = 1
-        status.layer.borderColor = UIColor.black.cgColor
-        status.tintColor = UIColor.AccentColor.normal                          //цвет курсора
-        status.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0) //сдвиг курсора на 5пт в textField (для красоты)
-        status.addTarget(self, action: #selector(beginToEditStatus), for: .allEditingEvents)
-        status.addTarget(self, action: #selector(changeStatusText), for: .editingChanged)
-        status.addTarget(self, action: #selector(endToEditStatus), for: .editingDidEnd)
-        return status
-    }()
+        $0.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.placeholder = "Type new status"          //текстовая подсказка в поле textField
+        $0.adjustsFontSizeToFitWidth = true         //уменьшение шрифта, если введенный текст не помещается
+        $0.minimumFontSize = 10                     //до какого значения уменьшается шрифт
+        $0.tag = 3
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 12
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor.black.cgColor
+        $0.tintColor = UIColor.AccentColor.normal                          //цвет курсора
+        $0.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0) //сдвиг курсора на 5пт в textField (для красоты)
+        $0.addTarget(self, action: #selector(beginToEditStatus), for: .allEditingEvents)
+        $0.addTarget(self, action: #selector(changeStatusText), for: .editingChanged)
+        $0.addTarget(self, action: #selector(endToEditStatus), for: .editingDidEnd)
+        return $0
+    }(UITextField())
     
     private lazy var statusAlert: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -107,16 +102,15 @@ class ProfileHeaderView: UIView {
     }(UILabel())
 
     private lazy var buttonAccept: CustomButton = {
-        let button = CustomButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 9
-        button.backgroundColor = .systemBlue
-        button.setImage(UIImage(systemName: "checkmark.rectangle.portrait"), for: .normal)
-        button.tintColor = .white
-        button.isHidden = true
-        button.addTarget(self, action: #selector(tapAcceptStatusButton), for: .touchUpInside)
-        return button
-    }()
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.layer.cornerRadius = 9
+        $0.backgroundColor = .systemBlue
+        $0.setImage(UIImage(systemName: "checkmark.rectangle.portrait"), for: .normal)
+        $0.tintColor = .white
+        $0.isHidden = true
+        $0.addTarget(self, action: #selector(tapAcceptStatusButton), for: .touchUpInside)
+        return $0
+    }(CustomButton())
     
     
 //MARK: - INITs
@@ -192,53 +186,58 @@ class ProfileHeaderView: UIView {
     func showProfileHeaderView() {
         [profileLabel, mainButton, profileStatus, editStatus, buttonAccept].forEach { self.addSubview($0) }
         
-        NSLayoutConstraint.activate([
-            profileLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
-            profileLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: sizeProfileImage + 2 * space),
-            profileLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -space),
-            profileLabel.heightAnchor.constraint(equalToConstant: 30),
-
-            mainButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: sizeProfileImage + 2 * space),
-            mainButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: space),
-            mainButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -space),
-            mainButton.heightAnchor.constraint(equalToConstant: 50),
-
-            profileStatus.bottomAnchor.constraint(equalTo: mainButton.topAnchor, constant: -space - 46),
-            profileStatus.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: sizeProfileImage + 2 * space),
-            profileStatus.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -space),
-            profileStatus.heightAnchor.constraint(equalToConstant: 26),
-
-            editStatus.bottomAnchor.constraint(equalTo: mainButton.topAnchor, constant: -space / 2 - 6),
-            editStatus.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: sizeProfileImage + 2 * space),
-            editStatus.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -space),
-            editStatus.heightAnchor.constraint(equalToConstant: 40),
-
-            buttonAccept.topAnchor.constraint(equalTo: editStatus.topAnchor, constant: 5),
-            buttonAccept.trailingAnchor.constraint(equalTo: editStatus.trailingAnchor, constant: -5),
-            buttonAccept.widthAnchor.constraint(equalToConstant: 30),
-            buttonAccept.heightAnchor.constraint(equalToConstant: 30)
-        ])
+        profileLabel.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).offset(27)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(sizeProfileImage + 2 * space)
+        }
+        
+        mainButton.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).offset(sizeProfileImage + 2 * space)
+            make.leading.trailing.equalTo(safeAreaLayoutGuide).inset(space)
+            make.height.equalTo(50)
+        }
+        
+        profileStatus.snp.makeConstraints { make in
+            make.bottom.equalTo(mainButton).offset(-space - 46 - 50)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(sizeProfileImage + 2 * space)
+        }
+        
+        editStatus.snp.makeConstraints { make in
+            make.bottom.equalTo(mainButton).offset(-space / 2 - 6 - 50)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(sizeProfileImage + 2 * space)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-space)
+            make.height.equalTo(40)
+        }
+        
+        buttonAccept.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 30, height: 30))
+            make.top.equalTo(editStatus).offset(5)
+            make.trailing.equalTo(editStatus).offset(-5)
+        }
        
         [viewUnderImage, profileImage, buttonX].forEach { self.addSubview($0) }
         viewUnderImage.addSubview(blurBackgroundEffect())
-               
+
+        viewUnderImage.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide)
+            make.leading.equalTo(safeAreaLayoutGuide)
+            make.trailing.equalTo(safeAreaLayoutGuide)
+            make.height.equalTo(screenHeight)
+        }
+
+        buttonX.snp.makeConstraints { make in
+            make.top.equalTo(viewUnderImage).offset(20)
+            make.trailing.equalTo(viewUnderImage).offset(-20)
+            make.height.width.equalTo(24)
+        }
+        
         topProfileImage = profileImage.topAnchor.constraint(equalTo: viewUnderImage.topAnchor, constant: space)
         leadingProfileImage = profileImage.leadingAnchor.constraint(equalTo: viewUnderImage.leadingAnchor, constant: space)
         widthProfileImage = profileImage.widthAnchor.constraint(equalToConstant: sizeProfileImage)
         heightProfileImage = profileImage.heightAnchor.constraint(equalToConstant: sizeProfileImage)
         
         NSLayoutConstraint.activate([
-            viewUnderImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            viewUnderImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            viewUnderImage.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            viewUnderImage.heightAnchor.constraint(equalToConstant: screenHeight),
-            
-            topProfileImage, leadingProfileImage, widthProfileImage, heightProfileImage,
-            
-            buttonX.topAnchor.constraint(equalTo: viewUnderImage.topAnchor, constant: 20),
-            buttonX.trailingAnchor.constraint(equalTo: viewUnderImage.trailingAnchor, constant: -20),
-            buttonX.widthAnchor.constraint(equalToConstant: 24),
-            buttonX.heightAnchor.constraint(equalToConstant: 24)
+            topProfileImage, leadingProfileImage, widthProfileImage, heightProfileImage
         ])
     }
 
