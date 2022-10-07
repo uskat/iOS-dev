@@ -12,6 +12,8 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
     private let profileTVCell = ProfileTableViewCell()
     private let detailedPostVC = DetailedPostViewController()
     private let photosVC = PhotosViewController()
+    private let loginVC = LogInViewController()
+    var user: User?
     
     
 //MARK: - ITEMs
@@ -30,26 +32,37 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
     
     
 //MARK: - INITs
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            //self.navigationController?.isNavigationBarHidden = true
-            showProfileTable()
-            #if DEBUG
-                tableView.backgroundColor = .white
-            #else
-                tableView.backgroundColor = .systemYellow
-            #endif
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //self.navigationController?.isNavigationBarHidden = true
+        showProfileTable()
+        if let user = user {
+            profileHeaderView.profileImage.image = user.avatar
+            profileHeaderView.profileLabel.text = user.fullName
+            profileHeaderView.profileStatus.text = user.status
+        } else {
+            profileHeaderView.profileImage.image = UIImage(named: "noname")!
+            profileHeaderView.profileLabel.text = "Noname"
+            profileHeaderView.profileStatus.text = "Nothing happens"
         }
-        
-        override func viewWillLayoutSubviews() {
-            self.navigationController?.isNavigationBarHidden = true
-            checkOrientation()
-        }
-        
-        override func viewDidAppear(_ animated: Bool) {
-            //в extension UITextField дописана функция анимации
-            profileHeaderView.editStatus.animate(newText: placeHolder(profileHeaderView.editStatus), characterDelay: 0.2)
-        }
+        #if DEBUG
+            tableView.backgroundColor = .white
+        #else
+            tableView.backgroundColor = .systemYellow
+        #endif
+    }
+    
+    override func viewWillLayoutSubviews() {
+        self.navigationController?.isNavigationBarHidden = true
+        checkOrientation()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("ProileVC \(user?.login), \(user?.fullName), \(user?.avatar)")
+
+        //в extension UITextField дописана функция анимации
+        profileHeaderView.editStatus.animate(newText: placeHolder(profileHeaderView.editStatus), characterDelay: 0.2)
+    }
 
     
 //MARK: - METHODs

@@ -4,7 +4,6 @@ import UIKit
 class ProfileHeaderView: UIView {
     
     let space: CGFloat = 16
-
     
     //MARK: - ITEMs
     let viewUnderImage: UIView = {
@@ -14,14 +13,13 @@ class ProfileHeaderView: UIView {
         return $0
     }(UIView())
     
-    let profileImage: UIImageView = {
+    lazy var profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = sizeProfileImage / 2
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.contentMode = .scaleAspectFill        //полное заполнение
-        imageView.image = UIImage(named: "obiwan")
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         return imageView
@@ -42,11 +40,10 @@ class ProfileHeaderView: UIView {
     
     //======================================================================================================
 
-    private let profileLabel: UILabel = {
+    let profileLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.text = "Obi Wan Kenobi"
         label.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         return label
     }()
@@ -273,7 +270,7 @@ class ProfileHeaderView: UIView {
     
     //MARK: жесты и анимация
     func tapGestureOnProfileImage() {
-        print("tapGesture?")
+        //print("tapGesture?")
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnImage))
         profileImage.addGestureRecognizer(tapGesture)
     }
