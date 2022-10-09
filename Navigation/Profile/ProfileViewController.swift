@@ -58,8 +58,6 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("ProileVC \(user?.login), \(user?.fullName), \(user?.avatar)")
-
         //в extension UITextField дописана функция анимации
         profileHeaderView.editStatus.animate(newText: placeHolder(profileHeaderView.editStatus), characterDelay: 0.2)
     }

@@ -193,24 +193,23 @@ class LogInViewController: UIViewController {
                                             fullName: users[indexOfUser].fullName,
                                             avatar: users[indexOfUser].userImage,
                                             status: users[indexOfUser].status)
-                    if let user = userService.user, pass == user.password {
+                    if let user = userService.checkUser(login), pass == user.password {
                         let profileVC = ProfileViewController()
-                        profileVC.user = userService.user
-                        print("controller = \(userService)")
+                        profileVC.user = user
                         navigationController?.pushViewController(profileVC, animated: true)
                         self.login.text = ""
                         self.pass.text = ""
                     } else {
-                        alertOfIncorrectLoginPass()
+                        alertOfIncorrectLoginOrPass()
                     }
                 } else {
-                    alertOfIncorrectLoginPass()
+                    alertOfIncorrectLoginOrPass()
                 }
             }
         }
     }
 
-    private func alertOfIncorrectLoginPass() {
+    private func alertOfIncorrectLoginOrPass() {
         let alert = UIAlertController(title: "Incorrect Login or Password", message: "please check your input", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Try again", style: .destructive) {
             _ in print("Отмена")
