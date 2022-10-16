@@ -3,6 +3,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
+    weak var loginDelegate: LoginViewControllerDelegate?
     private let notification = NotificationCenter.default //уведомление для того чтобы отслеживать перекрытие клавиатурой UITextField
 #if DEBUG
     let userService = TestUserService()
@@ -186,22 +187,29 @@ class LogInViewController: UIViewController {
         checkInputedData(pass, passAlert)
         if statusEntry {
             if let login = login.text, let pass = pass.text {
-                if let indexOfUser = dictionaryOfUsers[login] {
-                    userService.user = User(
-                                            login: users[indexOfUser].userName,
-                                            password: users[indexOfUser].password,
-                                            fullName: users[indexOfUser].fullName,
-                                            avatar: users[indexOfUser].userImage,
-                                            status: users[indexOfUser].status)
-                    if let user = userService.checkUser(login), pass == user.password {
+                print("login = \(login), pass = \(pass). loginDelegate? = \(loginDelegate?.check(login: login, pass: pass))")
+                if ((loginDelegate?.check(login: login, pass: pass)) != nil) {
+                    //print("check = \(check)")
+                    //if check {
+                        if let indexOfUser = dictionaryOfUsers[login] {
+                            print("indexOfUser = \(indexOfUser)")
+                            userService.user = User(login: users[indexOfUser].userName,
+                                                    password: users[indexOfUser].password,
+                                                    fullName: users[indexOfUser].fullName,
+                                                    avatar: users[indexOfUser].userImage,
+                                                    status: users[indexOfUser].status)
+                            print("userService.user = \(userService.user)")
+                        }
+                        let user = userService.checkUser(login)
+                        print("user = \(user)")
                         let profileVC = ProfileViewController()
                         profileVC.user = user
                         navigationController?.pushViewController(profileVC, animated: true)
                         self.login.text = ""
                         self.pass.text = ""
-                    } else {
-                        alertOfIncorrectLoginOrPass()
-                    }
+//                    } else {
+//                        alertOfIncorrectLoginOrPass()
+//                    }
                 } else {
                     alertOfIncorrectLoginOrPass()
                 }
@@ -341,37 +349,3 @@ extension LogInViewController: UITextFieldDelegate {
         return true
     }
 }
-
-//MARK: Вставляем тонкий разделитель в UIStackView
-class SeparatorView: UIView {
-    init() {
-        super.init(frame: .zero)
-        setUp()
-    }
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUp()
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    private func setUp() {
-        backgroundColor = .lightGray
-    }
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIView.noIntrinsicMetric, height:0.5)
-    }
-}
-
-
-//MARK: универсальный код для изменения цвета кнопки в зависимости от её состояния
-/*extension UIButton {
-    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
-        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-        UIGraphicsGetCurrentContext()!.setFillColor(color.cgColor)
-        UIGraphicsGetCurrentContext()!.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-        let colorImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        self.setBackgroundImage(colorImage, for: forState)
-    }
-}*/
