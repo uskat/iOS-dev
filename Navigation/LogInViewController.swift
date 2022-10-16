@@ -4,7 +4,11 @@ import UIKit
 class LogInViewController: UIViewController {
 
     private let notification = NotificationCenter.default //уведомление для того чтобы отслеживать перекрытие клавиатурой UITextField
-    
+#if DEBUG
+    let userService = TestUserService()
+#else
+    let userService = CurrentUserService()
+#endif
     
 //MARK: - ITEMs
     private let scrollLoginView: UIScrollView = {
@@ -122,6 +126,10 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showLoginItems()
+        #if DEBUG
+            login.text = "22@ru.ru"
+            pass.text = "222222"
+        #endif
     }
     
     override func viewWillLayoutSubviews() {
@@ -177,20 +185,39 @@ class LogInViewController: UIViewController {
         }
         checkInputedData(pass, passAlert)
         if statusEntry {
-            if checkLoginPass(login, pass) {
-                let profileVC = ProfileViewController()
-                navigationController?.pushViewController(profileVC, animated: true)
-                login.text = ""
-                pass.text = ""
-            } else {
-                let alert = UIAlertController(title: "Incorrect Login or Password", message: "please check your input", preferredStyle: .alert)
-                let cancel = UIAlertAction(title: "Try again", style: .destructive) {
-                    _ in print("Отмена")
+            if let login = login.text, let pass = pass.text {
+                if let indexOfUser = dictionaryOfUsers[login] {
+                    userService.user = User(
+                                            login: users[indexOfUser].userName,
+                                            password: users[indexOfUser].password,
+                                            fullName: users[indexOfUser].fullName,
+                                            avatar: users[indexOfUser].userImage,
+                                            status: users[indexOfUser].status)
+                    if let user = userService.checkUser(login), pass == user.password {
+                        let profileVC = ProfileViewController()
+                        profileVC.user = user
+                        navigationController?.pushViewController(profileVC, animated: true)
+                        self.login.text = ""
+                        self.pass.text = ""
+                    } else {
+                        alertOfIncorrectLoginOrPass()
+                    }
+                } else {
+                    alertOfIncorrectLoginOrPass()
                 }
-                alert.addAction(cancel)
-                present(alert, animated: true)
-}   }   }
-    
+            }
+        }
+    }
+
+    private func alertOfIncorrectLoginOrPass() {
+        let alert = UIAlertController(title: "Incorrect Login or Password", message: "please check your input", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Try again", style: .destructive) {
+            _ in print("Отмена")
+        }
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+        
     func showLoginItems() {
         view.addSubview(scrollLoginView)
         
