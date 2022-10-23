@@ -33,14 +33,6 @@ class TestUserService: UserService {
     var user: User?
 
     func checkUser(_ login: String) -> User? {
-        var returnedData: User?
-        if let user = user {
-            if login == user.login {
-                returnedData = user
-            } else {
-                returnedData = nil
-            }
-        }
-        return returnedData
+        return login == user?.login ? user : nil
     }
 }

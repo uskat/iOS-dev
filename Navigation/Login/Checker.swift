@@ -1,10 +1,6 @@
 
 import UIKit
 
-protocol LoginViewControllerDelegate: AnyObject {
-    func check(login: String, pass: String) -> Bool
-}
-
 final class Checker {
     static let shared = Checker()
     private var userName: String = users[0].userName

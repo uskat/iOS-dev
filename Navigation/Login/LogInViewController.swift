@@ -187,31 +187,24 @@ class LogInViewController: UIViewController {
         checkInputedData(pass, passAlert)
         if statusEntry {
             if let login = login.text, let pass = pass.text {
-                print("login = \(login), pass = \(pass). loginDelegate? = \(loginDelegate?.check(login: login, pass: pass))")
-                if ((loginDelegate?.check(login: login, pass: pass)) != nil) {
-                    //print("check = \(check)")
-                    //if check {
+                if let loginDelegate = loginDelegate?.check(login: login, pass: pass) {
+                    if loginDelegate {
                         if let indexOfUser = dictionaryOfUsers[login] {
-                            print("indexOfUser = \(indexOfUser)")
                             userService.user = User(login: users[indexOfUser].userName,
                                                     password: users[indexOfUser].password,
                                                     fullName: users[indexOfUser].fullName,
                                                     avatar: users[indexOfUser].userImage,
                                                     status: users[indexOfUser].status)
-                            print("userService.user = \(userService.user)")
                         }
                         let user = userService.checkUser(login)
-                        print("user = \(user)")
                         let profileVC = ProfileViewController()
                         profileVC.user = user
                         navigationController?.pushViewController(profileVC, animated: true)
                         self.login.text = ""
                         self.pass.text = ""
-//                    } else {
-//                        alertOfIncorrectLoginOrPass()
-//                    }
-                } else {
-                    alertOfIncorrectLoginOrPass()
+                    } else {
+                        alertOfIncorrectLoginOrPass()
+                    }
                 }
             }
         }
