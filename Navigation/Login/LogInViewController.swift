@@ -3,8 +3,13 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
+    weak var loginDelegate: LoginViewControllerDelegate?
     private let notification = NotificationCenter.default //уведомление для того чтобы отслеживать перекрытие клавиатурой UITextField
-    
+#if DEBUG
+    let userService = TestUserService()
+#else
+    let userService = CurrentUserService()
+#endif
     
 //MARK: - ITEMs
     private let scrollLoginView: UIScrollView = {
@@ -122,6 +127,10 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showLoginItems()
+        #if DEBUG
+            login.text = "22@ru.ru"
+            pass.text = "222222"
+        #endif
     }
     
     override func viewWillLayoutSubviews() {
@@ -177,20 +186,39 @@ class LogInViewController: UIViewController {
         }
         checkInputedData(pass, passAlert)
         if statusEntry {
-            if checkLoginPass(login, pass) {
-                let profileVC = ProfileViewController()
-                navigationController?.pushViewController(profileVC, animated: true)
-                login.text = ""
-                pass.text = ""
-            } else {
-                let alert = UIAlertController(title: "Incorrect Login or Password", message: "please check your input", preferredStyle: .alert)
-                let cancel = UIAlertAction(title: "Try again", style: .destructive) {
-                    _ in print("Отмена")
+            if let login = login.text, let pass = pass.text {
+                if let loginDelegate = loginDelegate?.check(login: login, pass: pass) {
+                    if loginDelegate {
+                        if let indexOfUser = dictionaryOfUsers[login] {
+                            userService.user = User(login: users[indexOfUser].userName,
+                                                    password: users[indexOfUser].password,
+                                                    fullName: users[indexOfUser].fullName,
+                                                    avatar: users[indexOfUser].userImage,
+                                                    status: users[indexOfUser].status)
+                        }
+                        let user = userService.checkUser(login)
+                        let profileVC = ProfileViewController()
+                        profileVC.user = user
+                        navigationController?.pushViewController(profileVC, animated: true)
+                        self.login.text = ""
+                        self.pass.text = ""
+                    } else {
+                        alertOfIncorrectLoginOrPass()
+                    }
                 }
-                alert.addAction(cancel)
-                present(alert, animated: true)
-}   }   }
-    
+            }
+        }
+    }
+
+    private func alertOfIncorrectLoginOrPass() {
+        let alert = UIAlertController(title: "Incorrect Login or Password", message: "please check your input", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Try again", style: .destructive) {
+            _ in print("Отмена")
+        }
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+        
     func showLoginItems() {
         view.addSubview(scrollLoginView)
         
@@ -314,37 +342,3 @@ extension LogInViewController: UITextFieldDelegate {
         return true
     }
 }
-
-//MARK: Вставляем тонкий разделитель в UIStackView
-class SeparatorView: UIView {
-    init() {
-        super.init(frame: .zero)
-        setUp()
-    }
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUp()
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    private func setUp() {
-        backgroundColor = .lightGray
-    }
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIView.noIntrinsicMetric, height:0.5)
-    }
-}
-
-
-//MARK: универсальный код для изменения цвета кнопки в зависимости от её состояния
-/*extension UIButton {
-    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
-        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-        UIGraphicsGetCurrentContext()!.setFillColor(color.cgColor)
-        UIGraphicsGetCurrentContext()!.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-        let colorImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        self.setBackgroundImage(colorImage, for: forState)
-    }
-}*/

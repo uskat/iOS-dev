@@ -119,16 +119,8 @@ private func checkStatus(_ status: Bool) {
         statusEntry = false
     }
 }
-
-public func checkLoginPass(_ textFieldLogin: UITextField, _ textFieldPass: UITextField) -> Bool {
-    if textFieldLogin.text! == myLogin && textFieldPass.text! == myPass {
-        return true
-    } else {
-        return false
-    }
-}
     
-func shakeMeBaby(_ shakedItem: UITextField) {
+private func shakeMeBaby(_ shakedItem: UITextField) {
     let shake = CABasicAnimation(keyPath: "position")
     let xDelta = CGFloat(3)
     shake.duration = 0.07
