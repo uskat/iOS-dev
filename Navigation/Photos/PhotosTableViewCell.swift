@@ -41,7 +41,7 @@ class PhotosTableViewCell: UITableViewCell {
                 $0.backgroundColor = .black
                 $0.layer.cornerRadius = 6
                 $0.clipsToBounds = true
-                $0.image = photosViewController.photos[index].imageName
+                $0.image = photosViewController.photos[index]
                 return $0
             }(UIImageView())
             array.append(onePhoto)

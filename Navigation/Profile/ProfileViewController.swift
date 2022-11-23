@@ -8,12 +8,12 @@ protocol AddLikeDelegate: AnyObject {
 
 class ProfileViewController: UIViewController, AddLikeDelegate {
 
+    var user: User?
     private let profileHeaderView = ProfileHeaderView()
     private let profileTVCell = ProfileTableViewCell()
     private let detailedPostVC = DetailedPostViewController()
     private let photosVC = PhotosViewController()
     private let loginVC = LogInViewController()
-    var user: User?
     
     
 //MARK: - ITEMs
@@ -34,9 +34,8 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
 //MARK: - INITs
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.navigationController?.isNavigationBarHidden = true
         showProfileTable()
-        if let user = user {
+        if let user = user {   ///после успешного входа в профиль передаем данные о пользователе из "базы данных пользователей"
             profileHeaderView.profileImage.image = user.avatar
             profileHeaderView.profileLabel.text = user.fullName
             profileHeaderView.profileStatus.text = user.status
@@ -57,11 +56,6 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
         checkOrientation()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        //в extension UITextField дописана функция анимации
-        profileHeaderView.editStatus.animate(newText: placeHolder(profileHeaderView.editStatus), characterDelay: 0.2)
-    }
-
     
 //MARK: - METHODs
     
@@ -88,7 +82,7 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
         default:        print("")
         }
         print("количество лайков ПОСЛЕ = \(posts[index.row - 1].likes)")
-        tableView.reloadData()
+        tableView.reloadRows(at: [index], with: .none)
     }
 }
 
@@ -135,6 +129,7 @@ extension ProfileViewController: UITableViewDelegate {
             //navigationController?.pushViewController(post, animated: true)
             
             //анимированный push-переход с эффектом fade из Photos в Photo Galery
+            
             let transition = CATransition()
             transition.duration = 2.0
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
