@@ -26,7 +26,7 @@ class ProfileHeaderView: UIView {
     }()
     
     //======================================================================================================
-    let buttonX: UIButton = {
+    private lazy var buttonX: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.layer.cornerRadius = 12
         $0.backgroundColor = UIColor.AccentColor.normal
