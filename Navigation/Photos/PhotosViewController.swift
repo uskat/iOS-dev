@@ -1,25 +1,27 @@
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
 
     let profileHeaderView = ProfileHeaderView()
     var photos = Photo.addPhotos()
-    
+    let imagePublisherFacade = ImagePublisherFacade()
+
     
 //MARK: - ITEMs
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.backgroundColor = .white
-        collection.dataSource = self
-        collection.delegate = self
-        collection.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
-        return collection
-    }()
+//        let layout = UICollectionViewFlowLayout()
+//        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = .white
+        $0.dataSource = self
+        $0.delegate = self
+        $0.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
+        return $0
+    }(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()))
     
-    let buttonX: UIButton = {
+    private lazy var buttonX: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.layer.cornerRadius = 12
         $0.backgroundColor = UIColor.AccentColor.normal //.systemGray
@@ -51,9 +53,19 @@ class PhotosViewController: UIViewController {
         showCollection()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        imagePublisherFacade.subscribe(self)    //оформляем подписку на отображение фотографий в контроллере
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: photos.count * 2, userImages: photos)   //медленная загрузка фото
+    }
+    
     override func viewWillLayoutSubviews() {
         self.navigationController?.isNavigationBarHidden = false
         checkOrientation()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        imagePublisherFacade.removeSubscription(for: self)   //отменяем подписку на отображение фотографий
+        imagePublisherFacade.rechargeImageLibrary()    //очищаем библиотеку загруженных фото
     }
     
     
@@ -83,6 +95,7 @@ class PhotosViewController: UIViewController {
         ])
     }
     
+    //анимированное отображение окна с увеличенным фото
     func showViewWithPhotoOnTap(_ image: UIImage)  {
         UIView.transition(with: collectionView, duration: 3.0, options: .transitionFlipFromBottom, animations: { [self] in
             collectionView.addSubview(myView)
@@ -148,7 +161,15 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let image = photos[indexPath.row].imageName
+        let image = photos[indexPath.row]
         showViewWithPhotoOnTap(image)
+    }
+}
+
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        print("images \(images) images")
+        photos = images
+        collectionView.reloadData()
     }
 }
