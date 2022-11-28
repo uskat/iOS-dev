@@ -24,8 +24,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     
 //MARK: - METHODs
-    func setupCell(_ photo: Photo) {
-        imageView.image = photo.imageName
+    func setupCell(_ image: UIImage) {
+        imageView.image = image
     }
 
     func showImageView() {

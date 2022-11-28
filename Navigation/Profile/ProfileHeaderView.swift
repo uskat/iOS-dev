@@ -34,7 +34,7 @@ class ProfileHeaderView: UIView {
         $0.tintColor = .white
         $0.alpha = 0.0
         $0.isHidden = true
-        $0.addTarget(self, action: #selector(tapButtonX), for: .touchUpInside)
+        $0.addTarget(ProfileHeaderView.self, action: #selector(tapButtonX), for: .touchUpInside)
         return $0
     }(UIButton())
     
@@ -121,6 +121,8 @@ class ProfileHeaderView: UIView {
         super.init(frame: frame)
         showProfileHeaderView()
         tapGestureOnProfileImage()
+        //анимированное появление текста в TextField (в extension UITextField дописана функция анимации)
+        self.editStatus.animate(newText: placeHolder(editStatus), characterDelay: 0.2)
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)

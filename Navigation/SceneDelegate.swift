@@ -1,5 +1,6 @@
 
 import UIKit
+import iOSIntPackage
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,9 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         setupControllers()
         loginVC.loginDelegate = loginInspector
+
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = tabbar
-        
         window?.makeKeyAndVisible()
     }
     
