@@ -13,13 +13,11 @@ class InfoViewController: UIViewController {
         imageView.clipsToBounds = true
         return imageView
     }()
+    
     private lazy var infoButton: CustomButton = {
-        let button = CustomButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = CustomButton(title: "RUUUUUUN AWAAAAAY !!!!!!",
+                                  tapAction: { [weak self] in self?.tapInfoButton() })
         button.layer.cornerRadius = 4
-        button.backgroundColor = .systemBlue
-        button.setTitle("RUUUUUUN AWAAAAAY !!!", for: .normal)
-        button.addTarget(self, action: #selector(tapInfoButton), for: .touchUpInside)
         return button
     }()
 

@@ -11,17 +11,6 @@ class PhotosViewController: UIViewController {
     
 //MARK: - ITEMs
     private lazy var collectionView: UICollectionView = {
-<<<<<<< HEAD
-        let layout = UICollectionViewFlowLayout()
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.backgroundColor = .white
-        collection.dataSource = self
-        collection.delegate = self
-        collection.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
-        return collection
-    }()
-=======
 //        let layout = UICollectionViewFlowLayout()
 //        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +20,6 @@ class PhotosViewController: UIViewController {
         $0.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
         return $0
     }(UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()))
->>>>>>> b92c4dbedb4e81100a175820a35e50280f7ea18b
     
     private lazy var buttonX: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -66,8 +54,8 @@ class PhotosViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        imagePublisherFacade.subscribe(self)    //оформляем подписку на отображение фотографий в контроллере
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: photos.count * 2, userImages: photos)   //медленная загрузка фото
+        imagePublisherFacade.subscribe(self)    ///оформляем подписку на отображение фотографий в контроллере
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: photos.count * 2, userImages: photos) ///медленная загрузка фото
     }
     
     override func viewWillLayoutSubviews() {
@@ -76,8 +64,8 @@ class PhotosViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        imagePublisherFacade.removeSubscription(for: self)   //отменяем подписку на отображение фотографий
-        imagePublisherFacade.rechargeImageLibrary()    //очищаем библиотеку загруженных фото
+        imagePublisherFacade.removeSubscription(for: self)   ///отменяем подписку на отображение фотографий
+        imagePublisherFacade.rechargeImageLibrary()    ///очищаем библиотеку загруженных фото
     }
     
     

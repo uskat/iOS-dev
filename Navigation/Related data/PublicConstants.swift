@@ -3,8 +3,6 @@ import UIKit
 
 //MARK: ===================================  HEADER ===================================
 
-public var statusText = "Waiting for something....."
-
 public var screenWidth: CGFloat {
     return UIScreen.main.bounds.width
 }
@@ -16,7 +14,7 @@ public let sizeProfileImage: CGFloat = absoluteWidth / 3
 
 
 //MARK: ===================================  LOGIN  ===================================
-public var dictionaryOfUsers: [String: Int] = [
+public var dictionaryOfUsers: [String: Int] = [ ///словарь емейлов пользователей
     "11@ru.ru": 0,
     "22@ru.ru": 1
 ]
@@ -28,13 +26,13 @@ public struct Users {
     var userImage: UIImage
     var status: String
 }
-public var users: [Users] = [
+public var users: [Users] = [   ///профили пользователей
     Users(userName: "11@ru.ru", password: "111111", fullName: "Obi Wan Kenobi", userImage: UIImage(named: "obiwan")!, status: "Hello, my padavan"),
     Users(userName: "22@ru.ru", password: "222222", fullName: "Darth Vader", userImage: UIImage(named: "darthvader")!, status: "Come with me, son!")
 ]
 
 public var statusEntry = true
-public var errors: [ErrorInEmail] = []
+
 
 //MARK: ================================== ProfileVC ==================================
 public var posts: [Post] = Post.addPosts()

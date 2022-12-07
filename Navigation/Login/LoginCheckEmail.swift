@@ -13,6 +13,7 @@ public enum ErrorInEmail: String {
 
 class EmailValidator {
 
+    var errors: [ErrorInEmail] = []
     var email: String
     var status: Bool = true
     var level: Int = 1

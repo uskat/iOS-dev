@@ -24,6 +24,8 @@
 		0836A5BD283AEFDC007E62A4 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0836A5BC283AEFDC007E62A4 /* Photos.swift */; };
 		0836A5BF283BD8EB007E62A4 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0836A5BE283BD8EB007E62A4 /* PhotosCollectionViewCell.swift */; };
 		0836A5C128425211007E62A4 /* PublicConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0836A5C028425211007E62A4 /* PublicConstants.swift */; };
+		08504B14293A0FE60071FF5B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08504B13293A0FE60071FF5B /* CustomButton.swift */; };
+		08504B16293D16420071FF5B /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08504B15293D16420071FF5B /* FeedModel.swift */; };
 		087474FC2842B9A5001A282D /* DetailedPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087474FB2842B9A5001A282D /* DetailedPostViewController.swift */; };
 		0875CFFC2916BEAE001D0EF0 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 0875CFFB2916BEAE001D0EF0 /* iOSIntPackage */; };
 		088D472A28F343140073F086 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088D472928F343140073F086 /* Checker.swift */; };
@@ -96,6 +98,8 @@
 		0836A5BC283AEFDC007E62A4 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		0836A5BE283BD8EB007E62A4 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		0836A5C028425211007E62A4 /* PublicConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicConstants.swift; sourceTree = "<group>"; };
+		08504B13293A0FE60071FF5B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		08504B15293D16420071FF5B /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		087474FB2842B9A5001A282D /* DetailedPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPostViewController.swift; sourceTree = "<group>"; };
 		088D472928F343140073F086 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		088D472B28F8C46B0073F086 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
@@ -249,6 +253,8 @@
 				088D472828F342DD0073F086 /* Login */,
 				08F094A52825EB62003DA7CC /* MainTabBarController.swift */,
 				08F094952825E956003DA7CC /* FeedViewController.swift */,
+				08504B15293D16420071FF5B /* FeedModel.swift */,
+				08504B13293A0FE60071FF5B /* CustomButton.swift */,
 				082274F32825F108000D1AD1 /* PostViewController.swift */,
 				082274F52826FC60000D1AD1 /* InfoViewController.swift */,
 			);
@@ -431,6 +437,7 @@
 				087474FC2842B9A5001A282D /* DetailedPostViewController.swift in Sources */,
 				082274F62826FC60000D1AD1 /* InfoViewController.swift in Sources */,
 				0836A5B9283A8715007E62A4 /* PhotosViewController.swift in Sources */,
+				08504B16293D16420071FF5B /* FeedModel.swift in Sources */,
 				08A6EBDA2835FAC9006EEA72 /* UIView+Extension.swift in Sources */,
 				0836A5BB283A9151007E62A4 /* PhotosTableViewCell.swift in Sources */,
 				08F094A82825EB7D003DA7CC /* ProfileViewController.swift in Sources */,
@@ -441,6 +448,7 @@
 				08F094942825E956003DA7CC /* SceneDelegate.swift in Sources */,
 				088D472E28F9BC5C0073F086 /* LoginInspector.swift in Sources */,
 				0836A5BF283BD8EB007E62A4 /* PhotosCollectionViewCell.swift in Sources */,
+				08504B14293A0FE60071FF5B /* CustomButton.swift in Sources */,
 				082274F9282BCCFF000D1AD1 /* ProfileHeaderView.swift in Sources */,
 				088D472A28F343140073F086 /* Checker.swift in Sources */,
 				0811139E2842EC0800673E53 /* PublicMethds+Extnsns.swift in Sources */,

@@ -67,8 +67,8 @@ class PhotosTableViewCell: UITableViewCell {
         [cellTitleName, arrowToCollection, fourPhotosView].forEach({ contentView.addSubview($0) })
         arrayOfFirstFourPhotos.forEach({ fourPhotosView.addArrangedSubview($0) })
         
-        let outSpace: CGFloat = 12  //внешние отступы от фото до края экрана
-        let inSpace: CGFloat = 8    //внутренние отступы между фото
+        let outSpace: CGFloat = 12  ///внешние отступы от фото до края экрана
+        let inSpace: CGFloat = 8    ///внутренние отступы между фото
         let heightOfFourPhotos = (absoluteWidth - 2 * outSpace - 3 * inSpace) / 4
         
         NSLayoutConstraint.activate([
