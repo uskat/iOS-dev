@@ -70,7 +70,7 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
         ])
     }
 
-    func addLike(_ index: IndexPath, _ from: String) { //vars: "Profile", "Detail"
+    func addLike(_ index: IndexPath, _ from: String) { ///vars: "Profile", "Detail"
         print("tapLike addLike! ", terminator: "")
         print("количество лайков ДО = \(posts[index.row - 1].likes),", terminator: " ")
         posts[index.row - 1].likes += 1
@@ -129,7 +129,6 @@ extension ProfileViewController: UITableViewDelegate {
             //navigationController?.pushViewController(post, animated: true)
             
             //анимированный push-переход с эффектом fade из Photos в Photo Galery
-            
             let transition = CATransition()
             transition.duration = 2.0
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)

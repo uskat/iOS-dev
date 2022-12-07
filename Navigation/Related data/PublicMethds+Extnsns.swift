@@ -88,7 +88,7 @@ public func validateEmail(_ textField: UITextField) -> String {
             let validator = EmailValidator(email: email)
             print("validator checked")
             if !validator.checkDomain() {
-                for (_, value) in errors.enumerated() {
+                for (_, value) in validator.errors.enumerated() {
                     listOfErrorsToScreen = listOfErrorsToScreen + value.rawValue + "\n"
                 }
                 print("список ошибок - \(listOfErrorsToScreen)")

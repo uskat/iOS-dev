@@ -12,7 +12,6 @@ class ProfileTableViewCell: UITableViewCell {
 //MARK: - ITEMs
     private let postView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        //$0.backgroundColor = .clear
         return $0
     }(UIView())
     

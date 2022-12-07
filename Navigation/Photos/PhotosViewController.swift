@@ -54,8 +54,8 @@ class PhotosViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        imagePublisherFacade.subscribe(self)    //оформляем подписку на отображение фотографий в контроллере
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: photos.count * 2, userImages: photos)   //медленная загрузка фото
+        imagePublisherFacade.subscribe(self)    ///оформляем подписку на отображение фотографий в контроллере
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: photos.count * 2, userImages: photos) ///медленная загрузка фото
     }
     
     override func viewWillLayoutSubviews() {
@@ -64,8 +64,8 @@ class PhotosViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        imagePublisherFacade.removeSubscription(for: self)   //отменяем подписку на отображение фотографий
-        imagePublisherFacade.rechargeImageLibrary()    //очищаем библиотеку загруженных фото
+        imagePublisherFacade.removeSubscription(for: self)   ///отменяем подписку на отображение фотографий
+        imagePublisherFacade.rechargeImageLibrary()    ///очищаем библиотеку загруженных фото
     }
     
     

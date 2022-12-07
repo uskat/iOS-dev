@@ -3,6 +3,7 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
+    var statusText = "Waiting for something....."
     let space: CGFloat = 16
     
     //MARK: - ITEMs
@@ -19,14 +20,14 @@ class ProfileHeaderView: UIView {
         imageView.layer.cornerRadius = sizeProfileImage / 2
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.contentMode = .scaleAspectFill        //полное заполнение
+        imageView.contentMode = .scaleAspectFill        ///полное заполнение
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
     //======================================================================================================
-    let buttonX: UIButton = {
+    private lazy var buttonX: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.layer.cornerRadius = 12
         $0.backgroundColor = UIColor.AccentColor.normal
@@ -49,14 +50,9 @@ class ProfileHeaderView: UIView {
     }()
 
     private lazy var mainButton: CustomButton = {
-        let button = CustomButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = CustomButton(title: "Set status", titleHighlighted: "Status is being recorded",
+                                  tapAction: { [weak self] in self?.tapMainButton() })
         button.layer.cornerRadius = 4
-        button.backgroundColor = .systemBlue
-        button.setTitle("Set status", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Status is being recorded", for: .highlighted)
-        button.addTarget(self, action: #selector(tapMainButton), for: .touchUpInside)
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
@@ -78,16 +74,16 @@ class ProfileHeaderView: UIView {
         let status = UITextField()
         status.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         status.translatesAutoresizingMaskIntoConstraints = false
-        status.placeholder = "Type new status"          //текстовая подсказка в поле textField
-        status.adjustsFontSizeToFitWidth = true         //уменьшение шрифта, если введенный текст не помещается
-        status.minimumFontSize = 10                     //до какого значения уменьшается шрифт
+        status.placeholder = "Type new status"          ///текстовая подсказка в поле textField
+        status.adjustsFontSizeToFitWidth = true         ///уменьшение шрифта, если введенный текст не помещается
+        status.minimumFontSize = 10                     ///до какого значения уменьшается шрифт
         status.tag = 3
         status.backgroundColor = .white
         status.layer.cornerRadius = 12
         status.layer.borderWidth = 1
         status.layer.borderColor = UIColor.black.cgColor
-        status.tintColor = UIColor.AccentColor.normal                          //цвет курсора
-        status.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0) //сдвиг курсора на 5пт в textField (для красоты)
+        status.tintColor = UIColor.AccentColor.normal                          ///цвет курсора
+        status.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0) ///сдвиг курсора на 5пт в textField (для красоты)
         status.addTarget(self, action: #selector(beginToEditStatus), for: .allEditingEvents)
         status.addTarget(self, action: #selector(changeStatusText), for: .editingChanged)
         status.addTarget(self, action: #selector(endToEditStatus), for: .editingDidEnd)
@@ -104,14 +100,11 @@ class ProfileHeaderView: UIView {
     }(UILabel())
 
     private lazy var buttonAccept: CustomButton = {
-        let button = CustomButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = CustomButton(tapAction: { [weak self] in self?.tapAcceptStatusButton() })
         button.layer.cornerRadius = 9
-        button.backgroundColor = .systemBlue
         button.setImage(UIImage(systemName: "checkmark.rectangle.portrait"), for: .normal)
         button.tintColor = .white
         button.isHidden = true
-        button.addTarget(self, action: #selector(tapAcceptStatusButton), for: .touchUpInside)
         return button
     }()
     
@@ -154,16 +147,10 @@ class ProfileHeaderView: UIView {
         statusEntry = true
         checkInputedData(editStatus, statusAlert)
         print("status on Status \(statusEntry)")
-        if let oldStatus = profileStatus.text {
-            print("Прежний статус (до изменения) - \(oldStatus)")
-        }
         profileStatus.text = statusText
-        if let newStatus = editStatus.text {
-            print("Новый статус - \(newStatus)")
-        }
         editStatus.text = ""
         endEditing(true)
-        rotateAndSleep(0) //прячем вспомогательную кнопку без анимации
+        rotateAndSleep(0) ///прячем вспомогательную кнопку без анимации
     }
     
     @objc private func beginToEditStatus(_ textField: UITextField) {
@@ -176,7 +163,7 @@ class ProfileHeaderView: UIView {
         }
     }
     @objc private func endToEditStatus(_ textField: UITextField) {
-        rotateAndSleep(0) //прячем вспомогательную кнопку без анимации
+        rotateAndSleep(0) ///прячем вспомогательную кнопку без анимации
     }
     
     @objc private func tapAcceptStatusButton() {
@@ -185,7 +172,7 @@ class ProfileHeaderView: UIView {
         endEditing(true)
         profileStatus.text = statusText
         editStatus.text = ""
-        rotateAndSleep(1) //прячем вспомогательную кнопку с анимацией (после нажатия на неё)
+        rotateAndSleep(1) ///прячем вспомогательную кнопку с анимацией (после нажатия на неё)
     }
     
     func showProfileHeaderView() {
@@ -244,7 +231,7 @@ class ProfileHeaderView: UIView {
     
 //MARK: =================================== METHODs ===================================
     private func rotateAndSleep(_ key: Int) {
-        if key == 1 { //анимация вращения вокруг своей оси на вспомогательной кнопке
+        if key == 1 { ///анимация вращения вокруг своей оси на вспомогательной кнопке
             var perspective = CATransform3DIdentity
             perspective.m34 = 1 / -200
             buttonAccept.imageView!.layer.transform = perspective
@@ -255,7 +242,7 @@ class ProfileHeaderView: UIView {
             buttonAccept.imageView!.layer.add(rotate, forKey: nil)
         }
         //скрываем кнопку через 2 секунды (чтобы успела пройти анимация)
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: { //задержка выполнения любой команды
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: { ///задержка выполнения любой команды
             self.buttonAccept.isHidden = true
         })
     }

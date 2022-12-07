@@ -100,18 +100,15 @@ class LogInViewController: UIViewController {
     }(UILabel())
 
     private lazy var loginButton: CustomButton = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.layer.cornerRadius = 10
-        $0.backgroundColor = UIColor.AccentColor.normal
-        $0.setTitle("Log in", for: .normal)
-        $0.setTitleColor(.white, for: .normal)
-        $0.addTarget(self, action: #selector(tapLoginButton), for: .touchUpInside)
         $0.layer.shadowOffset = CGSize(width: 4, height: 4)
         $0.layer.shadowRadius = 4
         $0.layer.shadowColor = UIColor.black.cgColor
         $0.layer.shadowOpacity = 0.7
         return $0
-    }(CustomButton())
+    }(CustomButton(title: "Log in",
+                   background: UIColor.AccentColor.normal,
+                   tapAction:  { [weak self] in self?.tapLoginButton() }))
     
     var errorsLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -169,7 +166,7 @@ class LogInViewController: UIViewController {
         scrollLoginView.verticalScrollIndicatorInsets = .zero
     }
         
-    @objc private func tapLoginButton() {
+    private func tapLoginButton() {
         statusEntry = true
         checkInputedData(login, loginAlert)
         
@@ -314,27 +311,6 @@ extension UIColor {
     }
 }
 
-//MARK: кастомная кнопка с изменением альфа-канала для разных её состояний
-class CustomButton: UIButton {
-    override var isHighlighted: Bool {
-        didSet {
-            if (isHighlighted) {
-                alpha = 0.8
-            } else {
-                alpha = 1
-            }
-        }
-    }
-    override var isSelected: Bool {
-        didSet {
-            if (isSelected) {
-                alpha = 0.8
-            } else {
-                alpha = 1
-            }
-        }
-    }
-}
 //MARK: убираем клавиатуру по нажатию Enter (Return)
 extension LogInViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
