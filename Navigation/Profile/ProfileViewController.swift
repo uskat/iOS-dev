@@ -45,9 +45,9 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
             profileHeaderView.profileStatus.text = "Nothing happens"
         }
         #if DEBUG
-            tableView.backgroundColor = .white
-        #else
             tableView.backgroundColor = .systemYellow
+        #else
+        tableView.backgroundColor = .white
         #endif
     }
     

@@ -9,6 +9,8 @@ class FeedViewController: UIViewController {
     
       
 //MARK: - ITEMs
+    let feedViewModel: FeedViewModel
+    let feedCoordinator: FeedCoordinator
     private var colorOfPassCheck: UIColor = .black
     private let newPost = Post(title: "Post")
     
@@ -23,7 +25,7 @@ class FeedViewController: UIViewController {
     private lazy var guessTextField: UITextField = {
         $0.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.placeholder = "Input password"          ///текстовая подсказка в поле textField
+        $0.placeholder = "Input password"           ///текстовая подсказка в поле textField
         $0.adjustsFontSizeToFitWidth = true         ///уменьшение шрифта, если введенный текст не помещается
         $0.minimumFontSize = 10                     ///до какого значения уменьшается шрифт
         $0.backgroundColor = .white
@@ -75,24 +77,34 @@ class FeedViewController: UIViewController {
     
     
     //MARK: - INITs
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            view.backgroundColor = .white
-            showDefaultItems()
-        }
-        
-        override func viewWillLayoutSubviews() {
-            checkOrientation()
-        }
+    init(feedViewModel: FeedViewModel, feedCoordinator: FeedCoordinator) {
+        self.feedViewModel = feedViewModel
+        self.feedCoordinator = feedCoordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        showItems()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        checkOrientation()
+    }
 
 //MARK: - METHODs
     private func tapFeedButton() {
-        let thirdVC = PostViewController()
-        thirdVC.post = newPost
-        navigationController?.pushViewController(thirdVC, animated: true)
+        let postVC = PostViewController()
+        postVC.post = newPost
+        navigationController?.pushViewController(postVC, animated: true)
     }
     
-    private func showDefaultItems() {
+    private func showItems() {
         [headline, guessTextField, checkGuessButton, feedStackView].forEach{ view.addSubview($0) }
         [feedButton1, feedButton2].forEach { feedStackView.addArrangedSubview($0) }
 

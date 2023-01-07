@@ -117,6 +117,7 @@ class ProfileHeaderView: UIView {
         //анимированное появление текста в TextField (в extension UITextField дописана функция анимации)
         self.editStatus.animate(newText: placeHolder(editStatus), characterDelay: 0.2)
     }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

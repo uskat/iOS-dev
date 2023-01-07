@@ -33,6 +33,7 @@ public var users: [Users] = [   ///профили пользователей
 
 public var statusEntry = true
 
+public var isLogin: Bool = false
 
 //MARK: ================================== ProfileVC ==================================
 public var posts: [Post] = Post.addPosts()
