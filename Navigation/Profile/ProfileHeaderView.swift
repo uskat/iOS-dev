@@ -35,12 +35,12 @@ class ProfileHeaderView: UIView {
         $0.tintColor = .white
         $0.alpha = 0.0
         $0.isHidden = true
-        $0.addTarget(ProfileHeaderView.self, action: #selector(tapButtonX), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(tapButtonX), for: .touchUpInside)
         return $0
     }(UIButton())
     
     //======================================================================================================
-
+    
     let profileLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +48,7 @@ class ProfileHeaderView: UIView {
         label.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         return label
     }()
-
+    
     private lazy var mainButton: CustomButton = {
         let button = CustomButton(title: "Set status", titleHighlighted: "Status is being recorded",
                                   tapAction: { [weak self] in self?.tapMainButton() })
@@ -69,7 +69,7 @@ class ProfileHeaderView: UIView {
         status.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         return status
     }()
-
+    
     lazy var editStatus: UITextField = {
         let status = UITextField()
         status.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -86,7 +86,7 @@ class ProfileHeaderView: UIView {
         status.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0) ///сдвиг курсора на 5пт в textField (для красоты)
         status.addTarget(self, action: #selector(beginToEditStatus), for: .allEditingEvents)
         status.addTarget(self, action: #selector(changeStatusText), for: .editingChanged)
-        status.addTarget(self, action: #selector(endToEditStatus), for: .editingDidEnd)
+        status.addTarget(self, action: #selector(endToEditStatus), for: .editingDidEndOnExit)
         return status
     }()
     
@@ -98,7 +98,7 @@ class ProfileHeaderView: UIView {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .light)
         return $0
     }(UILabel())
-
+    
     private lazy var buttonAccept: CustomButton = {
         let button = CustomButton(tapAction: { [weak self] in self?.tapAcceptStatusButton() })
         button.layer.cornerRadius = 9
@@ -108,21 +108,21 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
-    
-//MARK: - INITs
+    //MARK: - INITs
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addTapGestureToHideKeyboard() ///скрываем клавиатуру при нажатии вне поля textField
         showProfileHeaderView()
-        tapGestureOnProfileImage()
+        tapGestureOnProfileImage() ///жест: запускаем анимацию появления аватарки на весь экран
         //анимированное появление текста в TextField (в extension UITextField дописана функция анимации)
         self.editStatus.animate(newText: placeHolder(editStatus), characterDelay: 0.2)
     }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    
-//MARK: - METHODs
+    //MARK: - METHODs
     @objc private func tapButtonX() {
         print("tap x")
         UIView.animate(withDuration: 1.5, delay: 0.0, options: .curveEaseIn) { [self] in
@@ -144,9 +144,9 @@ class ProfileHeaderView: UIView {
     }
     
     @objc private func tapMainButton() {
-        statusEntry = true
+//        statusEntry = true
         checkInputedData(editStatus, statusAlert)
-        print("status on Status \(statusEntry)")
+//        print("status on Status \(statusEntry)")
         profileStatus.text = statusText
         editStatus.text = ""
         endEditing(true)
@@ -162,12 +162,25 @@ class ProfileHeaderView: UIView {
             statusText = myText
         }
     }
+    
     @objc private func endToEditStatus(_ textField: UITextField) {
         rotateAndSleep(0) ///прячем вспомогательную кнопку без анимации
     }
     
+    func hideKbd() {
+        editStatus.endEditing(true)
+    }
+    
+    //Метод вызывается, когда пользователь кликает на view за пределами TextField (убирает клавиатуру)
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        if touches.first != nil {
+//            endEditing(true)
+//        }
+//        super.touchesBegan(touches, with: event)
+//    }
+    
     @objc private func tapAcceptStatusButton() {
-        statusEntry = true
+//        statusEntry = true
         checkInputedData(editStatus, statusAlert)
         endEditing(true)
         profileStatus.text = statusText
@@ -228,7 +241,6 @@ class ProfileHeaderView: UIView {
         ])
     }
 
-    
 //MARK: =================================== METHODs ===================================
     private func rotateAndSleep(_ key: Int) {
         if key == 1 { ///анимация вращения вокруг своей оси на вспомогательной кнопке
@@ -256,7 +268,6 @@ class ProfileHeaderView: UIView {
     public var widthProfileImage = NSLayoutConstraint()
     public var heightProfileImage = NSLayoutConstraint()
 
-    
     //MARK: жесты и анимация
     func tapGestureOnProfileImage() {
         //print("tapGesture?")

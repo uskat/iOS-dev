@@ -1,15 +1,15 @@
-
-import UIKit
-
-class MainTabBarController: UITabBarController {
+//
+//import UIKit
+//
+//class MainTabBarController: UITabBarController {
  
 //MARK: - PROPs
 //    let firstVC = FeedViewController()
 //    let secondVC = LogInViewController()
     
 //MARK: - INITs
-    override func viewDidLoad() {
-        super.viewDidLoad()
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
         
         //вычисляем высоту NavigationBar и StatusBar для сдвига элементов Profile
 //        topBarHeight = findNavigationBarHeight() + findStatusBarHeight()
@@ -17,7 +17,7 @@ class MainTabBarController: UITabBarController {
 //        UINavigationBar.appearance().backgroundColor = .systemGray6
 //        //UIBarButtonItem.appearance().tintColor = UIColor.magenta
 //        UITabBar.appearance().backgroundColor = .systemGray6
-    }
+//    }
     
 
 //MARK: - METHODs
@@ -47,4 +47,4 @@ class MainTabBarController: UITabBarController {
 //    func findStatusBarHeight() -> CGFloat {  //k1
 //        return UIApplication.shared.statusBarFrame.size.height
 //    }
-}
+//}

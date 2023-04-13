@@ -78,14 +78,7 @@ class DetailedPostViewController: UIViewController {
         show()
         setupLikesGestures()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        UIApplication.shared.statusBarUIView?.backgroundColor = .none
-    }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        checkOrientation()
-    }
        
     
 //MARK: - METHODs

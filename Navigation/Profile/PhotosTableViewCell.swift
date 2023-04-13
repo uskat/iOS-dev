@@ -2,9 +2,6 @@
 import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
-
-    let photosViewController = PhotosViewController()
-    
     
 //MARK: - ITEMs
     private let cellTitleName: UILabel = {
@@ -41,7 +38,7 @@ class PhotosTableViewCell: UITableViewCell {
                 $0.backgroundColor = .black
                 $0.layer.cornerRadius = 6
                 $0.clipsToBounds = true
-                $0.image = photosViewController.photos[index]
+//                $0.image = photosVC.photos[index]
                 return $0
             }(UIImageView())
             array.append(onePhoto)
@@ -49,19 +46,18 @@ class PhotosTableViewCell: UITableViewCell {
         return array
     }()
     
-    
 //MARK: - INITs
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         show()
         self.backgroundColor = .clear
+        showPhotos()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
 //MARK: - METHODs
     private func show() {
         [cellTitleName, arrowToCollection, fourPhotosView].forEach({ contentView.addSubview($0) })
@@ -88,4 +84,10 @@ class PhotosTableViewCell: UITableViewCell {
         ])
     }
     
+    func showPhotos() {
+        let viewModel = ProfileViewModel()
+        for index in 0...3 {
+            arrayOfFirstFourPhotos[index].image = viewModel.photos[index]
+        }
+    }
 }

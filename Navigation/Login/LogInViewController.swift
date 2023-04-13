@@ -3,13 +3,11 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
-    weak var loginDelegate: LoginViewControllerDelegate?
-    private let notification = NotificationCenter.default //уведомление для того чтобы отслеживать перекрытие клавиатурой UITextField
-#if DEBUG
-    let userService = TestUserService()
-#else
-    let userService = CurrentUserService()
-#endif
+    let loginViewModel: LoginViewModel
+    let viewModel: ProfileViewModel
+    let coordinator: ProfileCoordinator
+    var loginDelegate: LoginViewControllerDelegate?
+    private let notification = NotificationCenter.default ///уведомление для того чтобы отслеживать перекрытие клавиатурой UITextField
     
 //MARK: - ITEMs
     private let scrollLoginView: UIScrollView = {
@@ -47,12 +45,11 @@ class LogInViewController: UIViewController {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.placeholder = "Login"
-        $0.text = "11@ru.ru"
         $0.tag = 1
         $0.delegate = self
         $0.textColor = .black
-        $0.tintColor = UIColor.AccentColor.normal                           //цвет курсора
-        $0.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)  //сдвиг курсора на 5пт в textField (для красоты)
+        $0.tintColor = UIColor.AccentColor.normal                           ///цвет курсора
+        $0.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)  ///сдвиг курсора на 5пт в textField (для красоты)
         $0.autocapitalizationType = .none
         $0.backgroundColor = .systemGray6
         return $0
@@ -79,12 +76,11 @@ class LogInViewController: UIViewController {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.placeholder = "Password"
-        $0.text = "111111"
         $0.tag = 2
         $0.delegate = self
         $0.textColor = .black
-        $0.tintColor = UIColor.AccentColor.normal                           //цвет курсора
-        $0.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)  //сдвиг курсора на 5пт в textField (для красоты)
+        $0.tintColor = UIColor.AccentColor.normal                           ///цвет курсора
+        $0.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)  ///сдвиг курсора на 5пт в textField (для красоты)
         $0.backgroundColor = .systemGray6
         $0.isSecureTextEntry = true
         return $0
@@ -119,23 +115,52 @@ class LogInViewController: UIViewController {
         return $0
     }(UILabel())
     
+    private var hackersList: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+        $0.textColor = .systemRed
+        $0.alpha = 0.0
+        $0.numberOfLines = 6
+        $0.text = """
+        Добрые хакеры взломали все пароли...
+        Только никому ни слова, тссс
+        login: 11@ru.ru  || pass: 111111
+        login: 22@ru.ru || pass: 222222
+        login: 33@ru.ru || pass: 333333
+        login: 44@ru.ru || pass: 444444
+        """
+        return $0
+    }(UILabel())
+    
     
 //MARK: - INITs
+    init(loginViewModel: LoginViewModel, viewModel: ProfileViewModel, coordinator: ProfileCoordinator) {
+        self.loginViewModel = loginViewModel
+        self.viewModel = viewModel
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         showLoginItems()
+        view.addTapGestureToHideKeyboard() ///скрываем клавиатуру при нажатии вне поля textField
         #if DEBUG
             login.text = "22@ru.ru"
             pass.text = "222222"
+        #else
+            login.text = "44@ru.ru"
+            pass.text = "444444"
         #endif
     }
-    
-    override func viewWillLayoutSubviews() {
-        checkOrientation()
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true //прячем NavigationBar
+        self.navigationController?.navigationBar.isHidden = true ///прячем NavigationBar
         notification.addObserver(self, selector: #selector(keyboardAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         notification.addObserver(self, selector: #selector(keyboardDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -158,18 +183,20 @@ class LogInViewController: UIViewController {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             scrollLoginView.contentInset.bottom = keyboardSize.height + 80
             scrollLoginView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            hackersList.alpha = 1.0
         }
     }
     
     @objc private func keyboardDisappear() {
         scrollLoginView.contentInset = .zero
         scrollLoginView.verticalScrollIndicatorInsets = .zero
+        hackersList.alpha = 0.0
     }
         
     private func tapLoginButton() {
-        statusEntry = true
-        checkInputedData(login, loginAlert)
+        loginViewModel.statusEntry = true
         
+        checkInputedData(login, loginAlert)
         UIView.animate(withDuration: 4.5, delay: 0.0, options: .curveEaseOut) { [self] in
             errorsLabel.text = validateEmail(login)
             errorsLabel.alpha = 1.0
@@ -181,30 +208,27 @@ class LogInViewController: UIViewController {
                 view.layoutIfNeeded()
             } completion: { _ in  }
         }
+        
         checkInputedData(pass, passAlert)
-        if statusEntry {
+        
+        if loginViewModel.statusEntry {
+            print("statusEntry = \(loginViewModel.statusEntry)")
             if let login = login.text, let pass = pass.text {
-                if let loginDelegate = loginDelegate?.check(login: login, pass: pass) {
+                print("* LoginVC(1). login/pass nil-check. login = \(login), pass = \(pass), loginDelegate = \(loginDelegate)")
+                if let loginDelegate = loginDelegate?.check(login: login, pass: pass, user: viewModel.userService.checkUser(login)) {
+                    print("* LoginVC(2). loginDelegate = \(loginDelegate)")
                     if loginDelegate {
-                        if let indexOfUser = dictionaryOfUsers[login] {
-                            userService.user = User(login: users[indexOfUser].userName,
-                                                    password: users[indexOfUser].password,
-                                                    fullName: users[indexOfUser].fullName,
-                                                    avatar: users[indexOfUser].userImage,
-                                                    status: users[indexOfUser].status)
-                        }
-                        let user = userService.checkUser(login)
-                        let profileVC = ProfileViewController()
-                        profileVC.user = user
+                        let profileVC = ProfileViewController(viewModel: viewModel, coordinator: coordinator)
+                        viewModel.user = viewModel.userService.checkUser(login)
                         navigationController?.pushViewController(profileVC, animated: true)
                         self.login.text = ""
                         self.pass.text = ""
                     } else {
                         alertOfIncorrectLoginOrPass()
                     }
-                }
-            }
-        }
+                } else { print("* LoginVC(2else). loginDelegate = \(loginDelegate)") }
+            } else { print("* LoginVC(1else). login/pass nil-check. login = \(login), pass = \(pass)") }
+        } else { print("* LoginVC. false statusEntry")}
     }
 
     private func alertOfIncorrectLoginOrPass() {
@@ -215,8 +239,26 @@ class LogInViewController: UIViewController {
         alert.addAction(cancel)
         present(alert, animated: true)
     }
+    
+    private func validateEmail(_ textField: UITextField) -> String {
+        var listOfErrorsToScreen = """
+        """
+        if textField.tag == 1 {
+            if let email = textField.text {
+                let validator = EmailValidator(email: email)
+                print("Validator checked")
+                if !validator.checkDomain() {
+                    for (_, value) in validator.errors.enumerated() {
+                        listOfErrorsToScreen = listOfErrorsToScreen + value.rawValue + "\n"
+                    }
+                    print("Cписок ошибок - \(listOfErrorsToScreen)")
+                }
+            }
+        }
+        return listOfErrorsToScreen
+    }
         
-    func showLoginItems() {
+    private func showLoginItems() {
         view.addSubview(scrollLoginView)
         
         NSLayoutConstraint.activate([
@@ -236,7 +278,7 @@ class LogInViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollLoginView.widthAnchor)
         ])
         
-        [logoItem, stackLogin, loginButton, errorsLabel].forEach({ contentView.addSubview($0) })
+        [logoItem, stackLogin, loginButton, errorsLabel, hackersList].forEach({ contentView.addSubview($0) })
         loginView.addSubview(login)
         [loginView, pass].forEach({ stackLogin.addArrangedSubview($0) })
         [loginAlert, passAlert].forEach({ contentView.addSubview($0) })
@@ -268,6 +310,9 @@ class LogInViewController: UIViewController {
             errorsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             errorsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             
+            hackersList.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            hackersList.bottomAnchor.constraint(equalTo: stackLogin.topAnchor, constant: -8),
+            
             loginAlert.centerYAnchor.constraint(equalTo: login.centerYAnchor),
             loginAlert.trailingAnchor.constraint(equalTo: login.trailingAnchor, constant: -5),
             loginAlert.widthAnchor.constraint(equalToConstant: 220),
@@ -276,38 +321,6 @@ class LogInViewController: UIViewController {
             passAlert.trailingAnchor.constraint(equalTo: pass.trailingAnchor, constant: -5),
             passAlert.widthAnchor.constraint(equalToConstant: 220)
         ])
-    }
-}
-
-
-//MARK: код для обработки HEX цветов
-//(вводятся в формате 0xFF или 0xFFFFFF)
-extension UIColor {
-    convenience init(red: Int, green: Int, blue: Int, a: CGFloat = 1.0) {
-        self.init(
-            red: CGFloat(red) / 255.0,
-            green: CGFloat(green) / 255.0,
-            blue: CGFloat(blue) / 255.0,
-            alpha: a
-        )
-    }
-    convenience init(rgb: Int, a: CGFloat = 1.0) {
-        self.init(
-            red: (rgb >> 16) & 0xFF,
-            green: (rgb >> 8) & 0xFF,
-            blue: rgb & 0xFF,
-            a: a
-        )
-    }
-    //How to use this ^^^ code:
-    //let color = UIColor(red: 0xFF, green: 0xFF, blue: 0xFF, a: 0.5)
-    //let color2 = UIColor(rgb: 0xFFFFFF, a: 0.5)
-    
-    struct AccentColor {
-        static var normal: UIColor  { return UIColor(rgb: 0x4885CC, a: 1.0) }
-        static var highlightened: UIColor { return UIColor(rgb: 0x4885CC, a: 0.8) } //не используется
-        static var selected: UIColor { return UIColor(rgb: 0x4885CC, a: 0.8) }      //не используется
-        static var disabled: UIColor { return UIColor(rgb: 0x4885CC, a: 0.8) }      //не используется
     }
 }
 

@@ -8,7 +8,6 @@ class ProfileTableViewCell: UITableViewCell {
     var post: Post?
     weak var delegate: AddLikeDelegate?
     
-    
 //MARK: - ITEMs
     private let postView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -56,20 +55,17 @@ class ProfileTableViewCell: UITableViewCell {
         return $0
     }(UILabel())
     
-    
 //MARK: - INITs
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         show()
         setupLikesGestures()
         self.backgroundColor = .clear
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
 //MARK: - METHODs
     func show() {

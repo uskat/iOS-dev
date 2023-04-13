@@ -11,7 +11,6 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         return $0
     }(UIImageView())
     
-    
 //MARK: - INITs
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +20,6 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
 //MARK: - METHODs
     func setupCell(_ image: UIImage) {

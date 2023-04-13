@@ -4,11 +4,11 @@ import iOSIntPackage
 
 class PhotosViewController: UIViewController {
 
+    let viewModel: ProfileViewModel
+    let coordinator: ProfileCoordinator
     let profileHeaderView = ProfileHeaderView()
-    var photos = Photo.addPhotos()
     let imagePublisherFacade = ImagePublisherFacade()
 
-    
 //MARK: - ITEMs
     private lazy var collectionView: UICollectionView = {
 //        let layout = UICollectionViewFlowLayout()
@@ -46,6 +46,16 @@ class PhotosViewController: UIViewController {
     }(UIView())
     
 //MARK: - INITs
+    init(viewModel: ProfileViewModel, coordinator: ProfileCoordinator) {
+        self.viewModel = viewModel
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Photo Gallery"
@@ -55,19 +65,17 @@ class PhotosViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         imagePublisherFacade.subscribe(self)    ///оформляем подписку на отображение фотографий в контроллере
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: photos.count * 2, userImages: photos) ///медленная загрузка фото
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: viewModel.photos.count * 2, userImages: viewModel.photos) ///медленная загрузка фото
     }
     
     override func viewWillLayoutSubviews() {
         self.navigationController?.isNavigationBarHidden = false
-        checkOrientation()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         imagePublisherFacade.removeSubscription(for: self)   ///отменяем подписку на отображение фотографий
         imagePublisherFacade.rechargeImageLibrary()    ///очищаем библиотеку загруженных фото
     }
-    
     
 //MARK: - METHODs
     @objc private func tapButtonX() {
@@ -130,11 +138,11 @@ class PhotosViewController: UIViewController {
 //MARK: - UICollectionViewDataSource
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos.count
+        viewModel.photos.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
-        cell.setupCell(photos[indexPath.row])
+        cell.setupCell(viewModel.photos[indexPath.row])
         return cell
     }
 }
@@ -148,6 +156,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
         let width = (absoluteWidth - 4 * inSpace) / 3
         return CGSize(width: width, height: width)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         inSpace
     }
@@ -161,7 +170,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let image = photos[indexPath.row]
+        let image = viewModel.photos[indexPath.row]
         showViewWithPhotoOnTap(image)
     }
 }
@@ -169,7 +178,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
 extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
         print("images \(images) images")
-        photos = images
+        viewModel.photos = images
         collectionView.reloadData()
     }
 }

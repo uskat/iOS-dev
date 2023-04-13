@@ -25,7 +25,16 @@ public class CurrentUserService: UserService {
     var user: User?
 
     func checkUser(_ login: String) -> User? {
-        return login == user?.login ? user : nil
+        if let indexOfUser = dictionaryOfUsers[login] {
+            user = User(login: users[indexOfUser].userName,
+                        password: users[indexOfUser].password,
+                        fullName: users[indexOfUser].fullName,
+                        avatar: users[indexOfUser].userImage,
+                        status: users[indexOfUser].status)
+            return user
+        } else {
+            return nil
+        }
     }
 }
 

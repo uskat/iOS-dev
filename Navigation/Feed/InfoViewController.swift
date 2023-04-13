@@ -3,7 +3,6 @@ import UIKit
  
 class InfoViewController: UIViewController {
 
-
 //MARK: - ITEMs
     private let infoDefaultImage: UIImageView = {
         let imageView = UIImageView()
@@ -21,23 +20,13 @@ class InfoViewController: UIViewController {
         return button
     }()
 
-    
     //MARK: - INITs
         override func viewDidLoad() {
             super.viewDidLoad()
             view.backgroundColor = .systemGray6
             showDefaultItems()
         }
-        
-        override func viewWillAppear(_ animated: Bool) {
-            UIApplication.shared.statusBarUIView?.backgroundColor = .none
-        }
 
-        override func viewDidDisappear(_ animated: Bool) {
-            checkOrientation()
-        }
-
-    
 //MARK: - METHODs
     @objc private func tapInfoButton() {
         let alert = UIAlertController(title: "О, нет! Все пропало...", message: "Свистать всех наверх!", preferredStyle: .alert)

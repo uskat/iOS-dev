@@ -7,5 +7,4 @@ class FeedModel {
     func check(word: String) -> UIColor {
         return word == secretWord ? .systemGreen : .systemRed
     }
-    
 }

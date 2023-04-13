@@ -6,10 +6,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     //MARK: - PROPs
     var window: UIWindow?
-    let feedVC = FeedViewController()
-    let loginVC = LogInViewController()
-    let loginInspector = MyLoginFactory.shared.makeLoginInspector()
-    var tabbar = UITabBarController()
+    let coordinators = Coordinators()
    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -17,25 +14,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         setupControllers()
-        loginVC.loginDelegate = loginInspector
 
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = tabbar
+        window?.rootViewController = coordinators.start() //tabbar
         window?.makeKeyAndVisible()
     }
     
     func setupControllers() {
-        UINavigationBar.appearance().backgroundColor = .systemGray6
-        //UIBarButtonItem.appearance().tintColor = UIColor.magenta
-        UITabBar.appearance().backgroundColor = .systemGray6
-        feedVC.tabBarItem.title = "Feed"
-        feedVC.tabBarItem.image = UIImage(systemName: "rectangle.grid.2x2")
-        feedVC.navigationItem.title = "Feed"
-        loginVC.tabBarItem.title = "Profile"
-        loginVC.tabBarItem.image = UIImage(systemName: "person.crop.circle")
-        let firstNavigationVC = UINavigationController(rootViewController: feedVC)
-        let secondNavigationVC = UINavigationController(rootViewController: loginVC)
-        tabbar.viewControllers = [firstNavigationVC, secondNavigationVC]
+//        UINavigationBar.appearance().backgroundColor = .red //.systemGray6
+//        //UIBarButtonItem.appearance().tintColor = UIColor.magenta
+//        UITabBar.appearance().backgroundColor = .systemGray6
+//        feedVC.tabBarItem.title = "Feed"
+//        feedVC.tabBarItem.image = UIImage(systemName: "rectangle.grid.2x2")
+//        feedVC.navigationItem.title = "Feed"
+//        loginVC.tabBarItem.title = "Profile"
+//        loginVC.tabBarItem.image = UIImage(systemName: "person.crop.circle")
+//        let firstNavigationVC = UINavigationController(rootViewController: feedVC)
+//        let secondNavigationVC = UINavigationController(rootViewController: loginVC)
+//        tabbar.viewControllers = [firstNavigationVC, secondNavigationVC]
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

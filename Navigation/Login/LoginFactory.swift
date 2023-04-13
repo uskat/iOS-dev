@@ -10,6 +10,7 @@ struct MyLoginFactory: LoginFactory {
     private init () {}
     
     func makeLoginInspector() -> LoginInspector {
-        LoginInspector()
+        print("makeLoginInspector ok. \(LoginInspector())")
+        return LoginInspector()
     }
 }

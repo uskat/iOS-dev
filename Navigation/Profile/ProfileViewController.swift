@@ -8,13 +8,12 @@ protocol AddLikeDelegate: AnyObject {
 
 class ProfileViewController: UIViewController, AddLikeDelegate {
 
-    var user: User?
+    let viewModel: ProfileViewModel
+    let coordinator: ProfileCoordinator
     private let profileHeaderView = ProfileHeaderView()
     private let profileTVCell = ProfileTableViewCell()
     private let detailedPostVC = DetailedPostViewController()
-    private let photosVC = PhotosViewController()
-    private let loginVC = LogInViewController()
-    
+//    private let loginVC = LogInViewController()
     
 //MARK: - ITEMs
    
@@ -30,12 +29,21 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
         return $0
     }(UITableView(frame: .zero, style: .grouped))
     
-    
 //MARK: - INITs
+    init(viewModel: ProfileViewModel, coordinator: ProfileCoordinator) {
+        self.viewModel = viewModel
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showProfileTable()
-        if let user = user {   ///после успешного входа в профиль передаем данные о пользователе из "базы данных пользователей"
+        if let user = viewModel.user {   ///после успешного входа в профиль передаем данные о пользователе из "базы данных пользователей"
             profileHeaderView.profileImage.image = user.avatar
             profileHeaderView.profileLabel.text = user.fullName
             profileHeaderView.profileStatus.text = user.status
@@ -45,20 +53,17 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
             profileHeaderView.profileStatus.text = "Nothing happens"
         }
         #if DEBUG
-            tableView.backgroundColor = .white
+            view.backgroundColor = .systemYellow
         #else
-            tableView.backgroundColor = .systemYellow
+            view.backgroundColor = .white
         #endif
     }
     
     override func viewWillLayoutSubviews() {
         self.navigationController?.isNavigationBarHidden = true
-        checkOrientation()
     }
     
-    
 //MARK: - METHODs
-    
     private func showProfileTable() {
         view.addSubview(tableView)
         
@@ -85,7 +90,6 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
         tableView.reloadRows(at: [index], with: .none)
     }
 }
-
 
 //MARK: UITableViewDataSource
 extension ProfileViewController: UITableViewDataSource {
@@ -129,6 +133,7 @@ extension ProfileViewController: UITableViewDelegate {
             //navigationController?.pushViewController(post, animated: true)
             
             //анимированный push-переход с эффектом fade из Photos в Photo Galery
+            let photosVC = PhotosViewController(viewModel: viewModel, coordinator: coordinator)
             let transition = CATransition()
             transition.duration = 2.0
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
