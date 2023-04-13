@@ -149,7 +149,7 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         showLoginItems()
-        view.addTapGestureToHideKeyboard() ///скрываем клавиатуру при нажатии вне поля textField
+        view.addTapGestureToHideKeyboard() /// скрываем клавиатуру при нажатии в любом месте экрана вне textField
         #if DEBUG
             login.text = "22@ru.ru"
             pass.text = "222222"
@@ -212,11 +212,8 @@ class LogInViewController: UIViewController {
         checkInputedData(pass, passAlert)
         
         if loginViewModel.statusEntry {
-            print("statusEntry = \(loginViewModel.statusEntry)")
             if let login = login.text, let pass = pass.text {
-                print("* LoginVC(1). login/pass nil-check. login = \(login), pass = \(pass), loginDelegate = \(loginDelegate)")
                 if let loginDelegate = loginDelegate?.check(login: login, pass: pass, user: viewModel.userService.checkUser(login)) {
-                    print("* LoginVC(2). loginDelegate = \(loginDelegate)")
                     if loginDelegate {
                         let profileVC = ProfileViewController(viewModel: viewModel, coordinator: coordinator)
                         viewModel.user = viewModel.userService.checkUser(login)
@@ -226,9 +223,9 @@ class LogInViewController: UIViewController {
                     } else {
                         alertOfIncorrectLoginOrPass()
                     }
-                } else { print("* LoginVC(2else). loginDelegate = \(loginDelegate)") }
-            } else { print("* LoginVC(1else). login/pass nil-check. login = \(login), pass = \(pass)") }
-        } else { print("* LoginVC. false statusEntry")}
+                }
+            }
+        }
     }
 
     private func alertOfIncorrectLoginOrPass() {
@@ -246,7 +243,6 @@ class LogInViewController: UIViewController {
         if textField.tag == 1 {
             if let email = textField.text {
                 let validator = EmailValidator(email: email)
-                print("Validator checked")
                 if !validator.checkDomain() {
                     for (_, value) in validator.errors.enumerated() {
                         listOfErrorsToScreen = listOfErrorsToScreen + value.rawValue + "\n"

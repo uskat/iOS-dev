@@ -2,15 +2,6 @@
 import UIKit
 
 class FeedCoordinator: ModuleCoordinatorsProtocol {
-//    let moduleType: Module.ModuleType
-//    
-//    private(set) var coordinators: [CoordinatorsProtocol] = []
-//    private(set) var module: Module?
-//    
-//    init(moduleType: Module.ModuleType, module: Module? = nil) {
-//        self.moduleType = moduleType
-//        self.module = module
-//    }
     
     func start() -> UIViewController {
         let viewModel = FeedViewModel()

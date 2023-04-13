@@ -42,6 +42,7 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addTapGestureToHideKeyboard() /// скрываем клавиатуру при нажатии в любом месте экрана вне textField
         showProfileTable()
         if let user = viewModel.user {   ///после успешного входа в профиль передаем данные о пользователе из "базы данных пользователей"
             profileHeaderView.profileImage.image = user.avatar
@@ -76,8 +77,6 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
     }
 
     func addLike(_ index: IndexPath, _ from: String) { ///vars: "Profile", "Detail"
-        print("tapLike addLike! ", terminator: "")
-        print("количество лайков ДО = \(posts[index.row - 1].likes),", terminator: " ")
         posts[index.row - 1].likes += 1
         switch from {
         case "Detail":  detailedPostVC.delegate = self
@@ -86,7 +85,6 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
                         profileTVCell.post = posts[index.row - 1]
         default:        print("")
         }
-        print("количество лайков ПОСЛЕ = \(posts[index.row - 1].likes)")
         tableView.reloadRows(at: [index], with: .none)
     }
 }
