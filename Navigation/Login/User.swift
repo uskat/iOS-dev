@@ -23,6 +23,8 @@ class User {
 
 public class CurrentUserService: UserService {
     var user: User?
+    static let shared = CurrentUserService()
+    private init () {}
 
     func checkUser(_ login: String) -> User? {
         if let indexOfUser = dictionaryOfUsers[login] {
@@ -40,8 +42,15 @@ public class CurrentUserService: UserService {
 
 class TestUserService: UserService {
     var user: User?
+    static let shared = TestUserService()
+    private init () {}
 
     func checkUser(_ login: String) -> User? {
-        return login == user?.login ? user : nil
+        let user = User(login: users[1].userName,
+                      password: users[1].password,
+                      fullName: users[1].fullName,
+                      avatar: users[1].userImage,
+                      status: users[1].status)
+        return login == users[1].userName ? user : nil
     }
 }

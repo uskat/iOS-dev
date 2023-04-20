@@ -2,7 +2,7 @@
 import UIKit
 import iOSIntPackage
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIApplicationDelegate {
 
     //MARK: - PROPs
     var window: UIWindow?
@@ -13,14 +13,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        setupControllers()
+//        setupControllers()
 
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = coordinators.start() //tabbar
+//        auth()
         window?.makeKeyAndVisible()
     }
     
-    func setupControllers() {
+    func auth() {
+//        let profileViewModel = ProfileViewModel()
+//        print("reload. \(profileViewModel.userService.user)")
+//
+//        if profileViewModel.userService.user != nil {
+//            window?.rootViewController = coordinators.reload(authKey: true)
+//            print("auth true")
+//        } else {
+//            window?.rootViewController = coordinators.reload(authKey: false)
+//            print("auth false")
+//        }
+        let nvc = coordinators.reload(authKey: true)
+        window?.rootViewController = nvc
+    }
+    
+//    func setupControllers() {
 //        UINavigationBar.appearance().backgroundColor = .red //.systemGray6
 //        //UIBarButtonItem.appearance().tintColor = UIColor.magenta
 //        UITabBar.appearance().backgroundColor = .systemGray6
@@ -32,7 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let firstNavigationVC = UINavigationController(rootViewController: feedVC)
 //        let secondNavigationVC = UINavigationController(rootViewController: loginVC)
 //        tabbar.viewControllers = [firstNavigationVC, secondNavigationVC]
-    }
+//    }
     
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -63,3 +79,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+extension UIApplication {
+    var window: UIWindow? {
+        return (delegate as? SceneDelegate)?.window
+    }
+    
+    var sceneDelegate: SceneDelegate? {
+        return delegate as? SceneDelegate
+    }
+}

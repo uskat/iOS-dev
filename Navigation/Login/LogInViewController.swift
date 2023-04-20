@@ -149,7 +149,7 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         showLoginItems()
-        view.addTapGestureToHideKeyboard() /// скрываем клавиатуру при нажатии в любом месте экрана вне textField
+        view.addTapGestureToHideKeyboard() ///скрываем клавиатуру при нажатии вне поля textField
         #if DEBUG
             login.text = "22@ru.ru"
             pass.text = "222222"
@@ -218,14 +218,19 @@ class LogInViewController: UIViewController {
                         let profileVC = ProfileViewController(viewModel: viewModel, coordinator: coordinator)
                         viewModel.user = viewModel.userService.checkUser(login)
                         navigationController?.pushViewController(profileVC, animated: true)
+//                        let coos = Coordinators()
+//                        coos.reload(authKey: true)
+//                        UIApplication.shared.sceneDelegate?.auth()
+
                         self.login.text = ""
                         self.pass.text = ""
                     } else {
                         alertOfIncorrectLoginOrPass()
+                        viewModel.userService.user = nil
                     }
                 }
             }
-        }
+        } 
     }
 
     private func alertOfIncorrectLoginOrPass() {
@@ -243,6 +248,7 @@ class LogInViewController: UIViewController {
         if textField.tag == 1 {
             if let email = textField.text {
                 let validator = EmailValidator(email: email)
+                print("Validator checked")
                 if !validator.checkDomain() {
                     for (_, value) in validator.errors.enumerated() {
                         listOfErrorsToScreen = listOfErrorsToScreen + value.rawValue + "\n"

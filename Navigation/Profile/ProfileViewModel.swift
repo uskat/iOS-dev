@@ -7,8 +7,8 @@ class ProfileViewModel {
     var photos = Photo.addPhotos()
 
 #if DEBUG
-    let userService = TestUserService()
+    let userService = TestUserService.shared
 #else
-    let userService = CurrentUserService()
+    let userService = CurrentUserService.shared
 #endif
 }

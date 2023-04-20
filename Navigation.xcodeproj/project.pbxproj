@@ -29,7 +29,6 @@
 		08600557295130AC00B0C954 /* Coordinators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08600556295130AC00B0C954 /* Coordinators.swift */; };
 		0860055929513B0D00B0C954 /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0860055829513B0D00B0C954 /* FeedCoordinator.swift */; };
 		0860055C29513BEE00B0C954 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0860055B29513BEE00B0C954 /* Module.swift */; };
-		0860055E2952920700B0C954 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0860055D2952920700B0C954 /* ProfileCoordinator.swift */; };
 		086005602955303B00B0C954 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0860055F2955303B00B0C954 /* FeedViewModel.swift */; };
 		087474FC2842B9A5001A282D /* DetailedPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087474FB2842B9A5001A282D /* DetailedPostViewController.swift */; };
 		0875CFFC2916BEAE001D0EF0 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 0875CFFB2916BEAE001D0EF0 /* iOSIntPackage */; };
@@ -47,6 +46,7 @@
 		08F0949E2825E957003DA7CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08F0949C2825E957003DA7CC /* LaunchScreen.storyboard */; };
 		08F094A62825EB62003DA7CC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F094A52825EB62003DA7CC /* MainTabBarController.swift */; };
 		08F094A82825EB7D003DA7CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F094A72825EB7D003DA7CC /* ProfileViewController.swift */; };
+		B648D26C29EE161500FDE722 /* ProfileCoordiantor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B648D26B29EE161400FDE722 /* ProfileCoordiantor.swift */; };
 		B6EE121429DC8DC300AA7FFD /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EE121329DC8DC300AA7FFD /* UIColorExt.swift */; };
 		B6EE121629DC8E1E00AA7FFD /* UITextFieldExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EE121529DC8E1E00AA7FFD /* UITextFieldExt.swift */; };
 		B6EE121829DC904800AA7FFD /* UILabelExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EE121729DC904800AA7FFD /* UILabelExt.swift */; };
@@ -113,7 +113,6 @@
 		08600556295130AC00B0C954 /* Coordinators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinators.swift; sourceTree = "<group>"; };
 		0860055829513B0D00B0C954 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		0860055B29513BEE00B0C954 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
-		0860055D2952920700B0C954 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		0860055F2955303B00B0C954 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		087474FB2842B9A5001A282D /* DetailedPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPostViewController.swift; sourceTree = "<group>"; };
 		088D472928F343140073F086 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
@@ -133,6 +132,7 @@
 		08F0949F2825E957003DA7CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08F094A52825EB62003DA7CC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		08F094A72825EB7D003DA7CC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		B648D26B29EE161400FDE722 /* ProfileCoordiantor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordiantor.swift; sourceTree = "<group>"; };
 		B6EE121329DC8DC300AA7FFD /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		B6EE121529DC8E1E00AA7FFD /* UITextFieldExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExt.swift; sourceTree = "<group>"; };
 		B6EE121729DC904800AA7FFD /* UILabelExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExt.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 			children = (
 				08600556295130AC00B0C954 /* Coordinators.swift */,
 				0860055829513B0D00B0C954 /* FeedCoordinator.swift */,
-				0860055D2952920700B0C954 /* ProfileCoordinator.swift */,
+				B648D26B29EE161400FDE722 /* ProfileCoordiantor.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -514,7 +514,6 @@
 				08F094922825E956003DA7CC /* AppDelegate.swift in Sources */,
 				B6EE121629DC8E1E00AA7FFD /* UITextFieldExt.swift in Sources */,
 				087474FC2842B9A5001A282D /* DetailedPostViewController.swift in Sources */,
-				0860055E2952920700B0C954 /* ProfileCoordinator.swift in Sources */,
 				B6EE121C29DF48D300AA7FFD /* LoginViewModel.swift in Sources */,
 				082274F62826FC60000D1AD1 /* InfoViewController.swift in Sources */,
 				0836A5B9283A8715007E62A4 /* PhotosViewController.swift in Sources */,
@@ -527,6 +526,7 @@
 				08600557295130AC00B0C954 /* Coordinators.swift in Sources */,
 				0836A5C128425211007E62A4 /* PublicConstants.swift in Sources */,
 				B6EE121429DC8DC300AA7FFD /* UIColorExt.swift in Sources */,
+				B648D26C29EE161500FDE722 /* ProfileCoordiantor.swift in Sources */,
 				08F094A62825EB62003DA7CC /* MainTabBarController.swift in Sources */,
 				086005602955303B00B0C954 /* FeedViewModel.swift in Sources */,
 				08F094942825E956003DA7CC /* SceneDelegate.swift in Sources */,

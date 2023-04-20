@@ -42,7 +42,6 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addTapGestureToHideKeyboard() /// скрываем клавиатуру при нажатии в любом месте экрана вне textField
         showProfileTable()
         if let user = viewModel.user {   ///после успешного входа в профиль передаем данные о пользователе из "базы данных пользователей"
             profileHeaderView.profileImage.image = user.avatar
@@ -61,7 +60,7 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
     }
     
     override func viewWillLayoutSubviews() {
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
     }
     
 //MARK: - METHODs
@@ -119,17 +118,19 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
-//MARK: устанавливаем HEADER для таблицы !
+//MARK: HEADER для таблицы !
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return profileHeaderView
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         240
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             //navigationController?.pushViewController(post, animated: true)
-            
+
             //анимированный push-переход с эффектом fade из Photos в Photo Galery
             let photosVC = PhotosViewController(viewModel: viewModel, coordinator: coordinator)
             let transition = CATransition()
