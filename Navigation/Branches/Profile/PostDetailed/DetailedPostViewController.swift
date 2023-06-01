@@ -1,3 +1,4 @@
+
 import StorageService
 import UIKit
 
@@ -39,17 +40,15 @@ class DetailedPostViewController: UIViewController {
     let likes: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .black
-        $0.textAlignment = .left
         $0.isUserInteractionEnabled = true
         return $0
     }(UILabel())
     
     let views: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .black
+        $0.backgroundColor = .clear
         $0.textAlignment = .right
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return $0
     }(UILabel())
 
@@ -66,7 +65,8 @@ class DetailedPostViewController: UIViewController {
     private let heart: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.alpha = 0.0
-        $0.image = UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(hierarchicalColor: .systemRed))
+        $0.contentMode = .scaleAspectFit
+        $0.image = "❤️ ".emojiToImage()///UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(hierarchicalColor: .systemRed))
         return $0
     }(UIImageView())
     

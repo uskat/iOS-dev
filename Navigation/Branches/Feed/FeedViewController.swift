@@ -3,27 +3,22 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    struct Post {
-        var title: String
-    }
-    
 //MARK: - ITEMs
-    let viewModel: FeedViewModel
-    let coordinator: FeedCoordinator
-    private var colorOfPassCheck: UIColor = .black
-    private let newPost = Post(title: "Post")
+    private let viewModel: FeedViewModel
+//    weak var coordinator: CoordinatorProtocol?
+     var colorOfPassCheck: UIColor = .black
+//    private let newPost = Post(title: "Post")
     
     private lazy var headline: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        //$0.textColor = self.colorOfPassCheck
         $0.text = "Input password to check (right pass: 111)"
         return $0
     }(UILabel())
 
     private lazy var guessTextField: UITextField = {
-        $0.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         $0.placeholder = "Input password"           ///текстовая подсказка в поле textField
         $0.adjustsFontSizeToFitWidth = true         ///уменьшение шрифта, если введенный текст не помещается
         $0.minimumFontSize = 10                     ///до какого значения уменьшается шрифт
@@ -36,13 +31,15 @@ class FeedViewController: UIViewController {
     }(UITextField())
     
     private lazy var checkGuessButton: CustomButton = {
-        let button = CustomButton(title: "To guess", titleHighlighted: "Let's try...",
-                                  titleHighlightedColor: .lightGray,
-                                  tapAction:    { [weak self] in
-                                                    let feedModel = FeedModel()
-                                                    self?.colorOfPassCheck = feedModel.check(word: self?.guessTextField.text ?? "")
-                                                    self?.headline.textColor = self?.colorOfPassCheck
-                                                })
+        let button = CustomButton(
+            title: "To guess",
+            titleHighlighted: "Let's try...",
+            titleHighlightedColor: .lightGray,
+            tapAction:  { [weak self] in
+                            let feedModel = FeedModel()
+                            self?.colorOfPassCheck = feedModel.check(word: self?.guessTextField.text ?? "")
+                            self?.headline.textColor = self?.colorOfPassCheck
+                        })
         button.layer.cornerRadius = 10
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowRadius = 4
@@ -60,23 +57,29 @@ class FeedViewController: UIViewController {
     }(UIStackView())
     
     private lazy var feedButton1: CustomButton = {
-        let button = CustomButton(title: "New Post", titleHighlighted: "Post opening......",
-                                  titleColor: .yellow, titleHighlightedColor: .lightGray,
-                                  tapAction: { [weak self] in self?.tapFeedButton() })
+        let button = CustomButton(
+            title: "New Post",
+            titleHighlighted: "Post opening......",
+            titleColor: .yellow,
+            titleHighlightedColor: .lightGray,
+            tapAction: { [weak self] in self?.tapFeedButton() })
         return button
     }()
     
     private lazy var feedButton2: CustomButton = {
-        let button = CustomButton(title: "прямой переход в Профайл, без логин", titleHighlighted: "Post opening...",
-                                  titleColor: .green, titleHighlightedColor: .lightGray,
-                                  tapAction: { [weak self] in self?.tapFeedButton2() })
+        let button = CustomButton(
+            title: "прямой переход в Профайл, без логин",
+            titleHighlighted: "Post opening...",
+            titleColor: .green,
+            titleHighlightedColor: .lightGray,
+            tapAction: { [weak self] in self?.tapFeedButton2() })
         return button
     }()
     
     //MARK: - INITs
-    init(viewModel: FeedViewModel, coordinator: FeedCoordinator) {
+    init(viewModel: FeedViewModel) {
         self.viewModel = viewModel
-        self.coordinator = coordinator
+//        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -93,15 +96,18 @@ class FeedViewController: UIViewController {
 
 //MARK: - METHODs
     private func tapFeedButton() {
-        let postVC = PostViewController()
-        postVC.post = newPost
-        navigationController?.pushViewController(postVC, animated: true)
+        viewModel.load(to: .post)
+//        postVC.post = newPost
+//        navigationController?.pushViewController(postVC, animated: true)
+//        self.coordinator?.present(FeedCoordinator.Presentation.post)
     }
     
     private func tapFeedButton2() {
-        let postVC = PostViewController()
-        postVC.post = newPost
-        navigationController?.pushViewController(postVC, animated: true)
+        viewModel.load(to: .feed)
+        
+//        let postVC = PostViewController()
+//        postVC.post = newPost
+//        navigationController?.pushViewController(postVC, animated: true)
 //        let postVC = ProfileViewController()
 //        navigationController?.pushViewController(postVC, animated: true)
     }

@@ -5,7 +5,7 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
 
     let viewModel: ProfileViewModel
-    let coordinator: ProfileCoordinator
+//    let coordinator: ProfileCoordinator
     let profileHeaderView = ProfileHeaderView()
     let imagePublisherFacade = ImagePublisherFacade()
 
@@ -46,9 +46,9 @@ class PhotosViewController: UIViewController {
     }(UIView())
     
 //MARK: - INITs
-    init(viewModel: ProfileViewModel, coordinator: ProfileCoordinator) {
+    init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
-        self.coordinator = coordinator
+//        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -105,7 +105,7 @@ class PhotosViewController: UIViewController {
     
     //анимированное отображение окна с увеличенным фото
     func showViewWithPhotoOnTap(_ image: UIImage)  {
-        UIView.transition(with: collectionView, duration: 3.0, options: .transitionFlipFromBottom, animations: { [self] in
+        UIView.transition(with: collectionView, duration: 1.0, options: .transitionFlipFromBottom, animations: { [self] in
             collectionView.addSubview(myView)
             myView.addSubview(profileHeaderView.blurBackgroundEffect())
             myImageView.image = image

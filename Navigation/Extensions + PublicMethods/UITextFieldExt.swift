@@ -3,6 +3,7 @@ import UIKit
 import AVFoundation
 
 extension UITextField { ///анимированное появление текстовой подсказки в поле UITextField
+
     func animate(newText: String, characterDelay: TimeInterval) {
         DispatchQueue.main.async {
             self.placeholder = ""

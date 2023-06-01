@@ -6,7 +6,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIApplicationDelegate {
 
     //MARK: - PROPs
     var window: UIWindow?
-    let coordinators = Coordinators()
+    var coordinators: Coordinators?
    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -14,6 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIApplicationDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
 //        setupControllers()
+        
+        let factory = BranchesFactory.shared
+        let coordinators = Coordinators(factory: factory)
+        self.coordinators = coordinators
 
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = coordinators.start() //tabbar
@@ -32,8 +36,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIApplicationDelegate {
 //            window?.rootViewController = coordinators.reload(authKey: false)
 //            print("auth false")
 //        }
-        let nvc = coordinators.reload(authKey: true)
-        window?.rootViewController = nvc
+//        let nvc = coordinators.reload(authKey: true)
+//        window?.rootViewController = nvc
     }
     
 //    func setupControllers() {

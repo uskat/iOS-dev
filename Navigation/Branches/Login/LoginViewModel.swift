@@ -1,7 +1,7 @@
 
 import UIKit
 
-class LoginViewModel {
+class LoginViewModel: ViewModelProtocol {
     
     var statusEntry = true
     var isLogin: Bool = false

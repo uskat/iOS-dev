@@ -3,10 +3,10 @@ import UIKit
 
 class PostViewController: UIViewController {
 
-    var post: FeedViewController.Post?
+//    var coordinator = FeedCoordinator()
+    var post: FeedCoordinator.Post?
     
-//MARK: - INITs
-    
+    //MARK: - INITs
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

@@ -3,6 +3,15 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
+    public var centerXProfileImage = NSLayoutConstraint()
+    public var centerYProfileImage = NSLayoutConstraint()
+    public var topProfileImage = NSLayoutConstraint()
+    public var leadingProfileImage = NSLayoutConstraint()
+    public var trailingProfileImage = NSLayoutConstraint()
+    public var bottomProfileImage = NSLayoutConstraint()
+    public var widthProfileImage = NSLayoutConstraint()
+    public var heightProfileImage = NSLayoutConstraint()
+    
     var statusText = "Waiting for something....."
     let space: CGFloat = 16
     
@@ -26,21 +35,6 @@ class ProfileHeaderView: UIView {
         return imageView
     }()
     
-    //======================================================================================================
-    private lazy var buttonX: UIButton = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.layer.cornerRadius = 12
-        $0.backgroundColor = UIColor.AccentColor.normal
-        $0.setImage(UIImage(systemName: "x.circle"), for: .normal)
-        $0.tintColor = .white
-        $0.alpha = 0.0
-        $0.isHidden = true
-        $0.addTarget(self, action: #selector(tapButtonX), for: .touchUpInside)
-        return $0
-    }(UIButton())
-    
-    //======================================================================================================
-    
     let profileLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -50,8 +44,10 @@ class ProfileHeaderView: UIView {
     }()
     
     private lazy var mainButton: CustomButton = {
-        let button = CustomButton(title: "Set status", titleHighlighted: "Status is being recorded",
-                                  tapAction: { [weak self] in self?.tapMainButton() })
+        let button = CustomButton(
+            title: "Set status",
+            titleHighlighted: "Status is being recorded",
+            tapAction: { [weak self] in self?.tapMainButton() })
         button.layer.cornerRadius = 4
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowRadius = 4
@@ -72,8 +68,8 @@ class ProfileHeaderView: UIView {
     
     lazy var editStatus: UITextField = {
         let status = UITextField()
-        status.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         status.translatesAutoresizingMaskIntoConstraints = false
+        status.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         status.placeholder = "Type new status"          ///текстовая подсказка в поле textField
         status.adjustsFontSizeToFitWidth = true         ///уменьшение шрифта, если введенный текст не помещается
         status.minimumFontSize = 10                     ///до какого значения уменьшается шрифт
@@ -92,21 +88,34 @@ class ProfileHeaderView: UIView {
     
     private lazy var statusAlert: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.text = ""
         $0.textColor = .systemRed
-        $0.textAlignment = .right
         $0.font = UIFont.systemFont(ofSize: 13, weight: .light)
         return $0
     }(UILabel())
     
     private lazy var buttonAccept: CustomButton = {
-        let button = CustomButton(tapAction: { [weak self] in self?.tapAcceptStatusButton() })
+        let button = CustomButton(
+            tapAction: { [weak self] in self?.tapAcceptStatusButton() })
         button.layer.cornerRadius = 9
         button.setImage(UIImage(systemName: "checkmark.rectangle.portrait"), for: .normal)
         button.tintColor = .white
         button.isHidden = true
         return button
     }()
+    
+    //======================================================================================================
+    private lazy var buttonX: UIButton = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.layer.cornerRadius = 12
+        $0.backgroundColor = UIColor.AccentColor.normal
+        $0.setImage(UIImage(systemName: "x.circle"), for: .normal)
+        $0.tintColor = .white
+        $0.alpha = 0.0
+        $0.isHidden = true
+        $0.addTarget(self, action: #selector(tapButtonX), for: .touchUpInside)
+        return $0
+    }(UIButton())
+    //======================================================================================================
     
     //MARK: - INITs
     override init(frame: CGRect) {
@@ -146,7 +155,6 @@ class ProfileHeaderView: UIView {
     @objc private func tapMainButton() {
 //        statusEntry = true
         checkInputedData(editStatus, statusAlert)
-//        print("status on Status \(statusEntry)")
         profileStatus.text = statusText
         editStatus.text = ""
         endEditing(true)
@@ -258,26 +266,16 @@ class ProfileHeaderView: UIView {
             self.buttonAccept.isHidden = true
         })
     }
-    
-    public var centerXProfileImage = NSLayoutConstraint()
-    public var centerYProfileImage = NSLayoutConstraint()
-    public var topProfileImage = NSLayoutConstraint()
-    public var leadingProfileImage = NSLayoutConstraint()
-    public var trailingProfileImage = NSLayoutConstraint()
-    public var bottomProfileImage = NSLayoutConstraint()
-    public var widthProfileImage = NSLayoutConstraint()
-    public var heightProfileImage = NSLayoutConstraint()
 
     //MARK: жесты и анимация
     func tapGestureOnProfileImage() {
-        //print("tapGesture?")
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnImage))
         profileImage.addGestureRecognizer(tapGesture)
     }
 
     @objc private func tapOnImage() {
         print("tap")
-        UIView.animate(withDuration: 2.5, delay: 0.0, options: .curveEaseOut) { [self] in
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseOut) { [self] in
             viewUnderImage.addSubview(blurBackgroundEffect())
             if (UIScreen.main.bounds.height > UIScreen.main.bounds.width) {
                 topProfileImage.constant = UIScreen.main.bounds.height / 2 - absoluteWidth / 2 - 80

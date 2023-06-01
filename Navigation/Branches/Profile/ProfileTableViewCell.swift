@@ -41,7 +41,6 @@ class ProfileTableViewCell: UITableViewCell {
     let likes: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .black
         $0.textAlignment = .left
         $0.isUserInteractionEnabled = true
         return $0
@@ -50,8 +49,6 @@ class ProfileTableViewCell: UITableViewCell {
     let views: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .black
-        $0.textAlignment = .right
         return $0
     }(UILabel())
     

@@ -5,7 +5,7 @@ class LogInViewController: UIViewController {
 
     let loginViewModel: LoginViewModel
     let viewModel: ProfileViewModel
-    let coordinator: ProfileCoordinator
+//    let coordinator: ProfileCoordinator
     var loginDelegate: LoginViewControllerDelegate?
     private let notification = NotificationCenter.default ///уведомление для того чтобы отслеживать перекрытие клавиатурой UITextField
     
@@ -42,12 +42,11 @@ class LogInViewController: UIViewController {
     }(UIStackView())
 
     private lazy var login: UITextField = {
-        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.placeholder = "Login"
         $0.tag = 1
         $0.delegate = self
-        $0.textColor = .black
         $0.tintColor = UIColor.AccentColor.normal                           ///цвет курсора
         $0.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)  ///сдвиг курсора на 5пт в textField (для красоты)
         $0.autocapitalizationType = .none
@@ -57,9 +56,7 @@ class LogInViewController: UIViewController {
    
     private lazy var loginAlert: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.text = ""
         $0.textColor = .systemRed
-        $0.textAlignment = .right
         $0.font = UIFont.systemFont(ofSize: 13, weight: .light)
         return $0
     }(UILabel())
@@ -73,12 +70,11 @@ class LogInViewController: UIViewController {
     }(UIView())
     
     private lazy var pass: UITextField = {
-        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.placeholder = "Password"
         $0.tag = 2
         $0.delegate = self
-        $0.textColor = .black
         $0.tintColor = UIColor.AccentColor.normal                           ///цвет курсора
         $0.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)  ///сдвиг курсора на 5пт в textField (для красоты)
         $0.backgroundColor = .systemGray6
@@ -88,23 +84,23 @@ class LogInViewController: UIViewController {
     
     private lazy var passAlert: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.text = ""
         $0.textColor = .systemRed
-        $0.textAlignment = .right
         $0.font = UIFont.systemFont(ofSize: 13, weight: .light)
         return $0
     }(UILabel())
 
     private lazy var loginButton: CustomButton = {
-        $0.layer.cornerRadius = 10
-        $0.layer.shadowOffset = CGSize(width: 4, height: 4)
-        $0.layer.shadowRadius = 4
-        $0.layer.shadowColor = UIColor.black.cgColor
-        $0.layer.shadowOpacity = 0.7
-        return $0
-    }(CustomButton(title: "Log in",
-                   background: UIColor.AccentColor.normal,
-                   tapAction:  { [weak self] in self?.tapLoginButton() }))
+        let button = CustomButton(
+            title: "Log in",
+            background: UIColor.AccentColor.normal,
+            tapAction:  { [weak self] in self?.tapLoginButton() })
+        button.layer.cornerRadius = 10
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowRadius = 4
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.7
+        return button
+    }()
     
     var errorsLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -122,8 +118,8 @@ class LogInViewController: UIViewController {
         $0.alpha = 0.0
         $0.numberOfLines = 6
         $0.text = """
-        Добрые хакеры взломали все пароли...
-        Только никому ни слова, тссс
+        Хакеры взломали все пароли...
+        Никому ни слова, тссс
         login: 11@ru.ru  || pass: 111111
         login: 22@ru.ru || pass: 222222
         login: 33@ru.ru || pass: 333333
@@ -134,10 +130,10 @@ class LogInViewController: UIViewController {
     
     
 //MARK: - INITs
-    init(loginViewModel: LoginViewModel, viewModel: ProfileViewModel, coordinator: ProfileCoordinator) {
+    init(loginViewModel: LoginViewModel, viewModel: ProfileViewModel) {
         self.loginViewModel = loginViewModel
         self.viewModel = viewModel
-        self.coordinator = coordinator
+//        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -215,7 +211,7 @@ class LogInViewController: UIViewController {
             if let login = login.text, let pass = pass.text {
                 if let loginDelegate = loginDelegate?.check(login: login, pass: pass, user: viewModel.userService.checkUser(login)) {
                     if loginDelegate {
-                        let profileVC = ProfileViewController(viewModel: viewModel, coordinator: coordinator)
+                        let profileVC = ProfileViewController(viewModel: viewModel)
                         viewModel.user = viewModel.userService.checkUser(login)
                         navigationController?.pushViewController(profileVC, animated: true)
 //                        let coos = Coordinators()

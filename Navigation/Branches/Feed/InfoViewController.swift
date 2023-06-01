@@ -2,6 +2,8 @@
 import UIKit
  
 class InfoViewController: UIViewController {
+    
+//    var coordinator = FeedCoordinator()
 
 //MARK: - ITEMs
     private let infoDefaultImage: UIImageView = {
@@ -14,18 +16,19 @@ class InfoViewController: UIViewController {
     }()
     
     private lazy var infoButton: CustomButton = {
-        let button = CustomButton(title: "RUUUUUUN AWAAAAAY !!!!!!",
-                                  tapAction: { [weak self] in self?.tapInfoButton() })
+        let button = CustomButton(
+            title: "RUUUUUUN AWAAAAAY !!!!!!",
+            tapAction: { [weak self] in self?.tapInfoButton() })
         button.layer.cornerRadius = 4
         return button
     }()
 
     //MARK: - INITs
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            view.backgroundColor = .systemGray6
-            showDefaultItems()
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemGray6
+        showDefaultItems()
+    }
 
 //MARK: - METHODs
     @objc private func tapInfoButton() {

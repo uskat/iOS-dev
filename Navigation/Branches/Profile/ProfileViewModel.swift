@@ -1,11 +1,12 @@
 
 import UIKit
 
-class ProfileViewModel {
+class ProfileViewModel: ViewModelProtocol {
     
     var user: User?
     var photos = Photo.addPhotos()
-
+    weak var coordinator: ProfileCoordinator?
+    
 #if DEBUG
     let userService = TestUserService.shared
 #else

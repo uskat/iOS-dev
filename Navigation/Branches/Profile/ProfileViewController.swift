@@ -9,7 +9,7 @@ protocol AddLikeDelegate: AnyObject {
 class ProfileViewController: UIViewController, AddLikeDelegate {
 
     let viewModel: ProfileViewModel
-    let coordinator: ProfileCoordinator
+//    let coordinator: ProfileCoordinator
     private let profileHeaderView = ProfileHeaderView()
     private let profileTVCell = ProfileTableViewCell()
     private let detailedPostVC = DetailedPostViewController()
@@ -30,9 +30,9 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
     }(UITableView(frame: .zero, style: .grouped))
     
 //MARK: - INITs
-    init(viewModel: ProfileViewModel, coordinator: ProfileCoordinator) {
+    init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
-        self.coordinator = coordinator
+//        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -132,7 +132,7 @@ extension ProfileViewController: UITableViewDelegate {
             //navigationController?.pushViewController(post, animated: true)
 
             //анимированный push-переход с эффектом fade из Photos в Photo Galery
-            let photosVC = PhotosViewController(viewModel: viewModel, coordinator: coordinator)
+            let photosVC = PhotosViewController(viewModel: viewModel)
             let transition = CATransition()
             transition.duration = 2.0
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
