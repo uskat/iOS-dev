@@ -81,6 +81,6 @@ private func shakeMeBaby(_ shakedItem: UITextField) {
 }
 
 private func checkStatus(_ status: Bool) {
-    let viewModel = LoginViewModel()
+    let viewModel = ProfileViewModel()
     viewModel.statusEntry = viewModel.statusEntry ? status : false
 }

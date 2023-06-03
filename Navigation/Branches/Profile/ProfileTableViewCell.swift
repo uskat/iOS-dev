@@ -41,13 +41,13 @@ class ProfileTableViewCell: UITableViewCell {
     let likes: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        $0.textAlignment = .left
         $0.isUserInteractionEnabled = true
         return $0
     }(UILabel())
     
     let views: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .right
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         return $0
     }(UILabel())
@@ -107,7 +107,7 @@ class ProfileTableViewCell: UITableViewCell {
         views.text = "Views: \(post.views)"
     }
 
-    func setupLikesGestures() {
+    private func setupLikesGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapLike))
         likes.addGestureRecognizer(tapGesture)
     }

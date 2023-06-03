@@ -263,7 +263,6 @@
 		088D472828F342DD0073F086 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				B6EE121B29DF48D300AA7FFD /* LoginViewModel.swift */,
 				08A6EBD3283447F1006EEA72 /* LogInViewController.swift */,
 				081113A22849792800673E53 /* LoginCheckEmail.swift */,
 				088D472928F343140073F086 /* Checker.swift */,
@@ -311,6 +310,7 @@
 		B6B085DC299141C800AA8507 /* Garbage */ = {
 			isa = PBXGroup;
 			children = (
+				B6EE121B29DF48D300AA7FFD /* LoginViewModel.swift */,
 				08F094A52825EB62003DA7CC /* MainTabBarController.swift */,
 			);
 			path = Garbage;

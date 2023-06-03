@@ -60,7 +60,7 @@ class ProfileViewController: UIViewController, AddLikeDelegate {
     }
     
     override func viewWillLayoutSubviews() {
-//        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     
 //MARK: - METHODs

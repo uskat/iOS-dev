@@ -3,7 +3,6 @@ import UIKit
 
 class PostViewController: UIViewController {
 
-//    var coordinator = FeedCoordinator()
     var post: FeedCoordinator.Post?
     
     //MARK: - INITs

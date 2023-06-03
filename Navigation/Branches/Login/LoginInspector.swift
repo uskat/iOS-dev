@@ -6,8 +6,9 @@ protocol LoginViewControllerDelegate: AnyObject {
 }
 
 class LoginInspector: LoginViewControllerDelegate {
+
     let checker = Checker.shared
-    
+
     func check(login: String, pass: String, user: User?) -> Bool {
         checker.check(login: login, pass: pass, user: user)
     }

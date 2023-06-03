@@ -1,25 +1,8 @@
 
 import UIKit
 
-//class FeedCoordinator: Coordinator {
-//
-//    func start() -> UIViewController {
-//        let viewModel = FeedViewModel()
-//        let feedVC = FeedViewController(viewModel: viewModel, coordinator: self)
-//        let nvc = UINavigationController(rootViewController: feedVC)
-//        feedVC.title = "Feed"
-//        feedVC.tabBarItem.title = "Feed"
-//        feedVC.tabBarItem.image = UIImage(systemName: "rectangle.grid.2x2")
-//        return nvc
-//    }
-//}
-
-
 final class FeedCoordinator: CoordinatorProtocol {
-    
-//    var controller = UIViewController()
-//    let feedVC = FeedViewController()
-//    let feedNC = UINavigationController()
+
     let branchName: Branch.BranchName
     private let factory: BranchesFactory
     private(set) var branch: Branch?
@@ -28,11 +11,6 @@ final class FeedCoordinator: CoordinatorProtocol {
     init(branchName: Branch.BranchName, factory: BranchesFactory) {
         self.branchName = branchName
         self.factory = factory
-    }
-
-    //MARK: - НЕ передает Post !!!
-    struct Post {
-        var title: String
     }
 
 //    init() {
@@ -46,45 +24,33 @@ final class FeedCoordinator: CoordinatorProtocol {
 //        print("feed controller = \(controller)")
 //    }
 
-    func start() -> UIViewController{
+    struct Post {
+        var title: String
+    }
+    
+    func start() -> UIViewController {
         let branch = factory.createBranch(name: branchName)
-        print("feedBranch = \(branch)")
         let view = branch.view
         view.tabBarItem = branchName.tabBatItem
         (branch.viewModel as? FeedViewModel)?.coordinator = self
-        print("coo = \((branch.viewModel as? FeedViewModel)?.coordinator)")
         self.branch = branch
         return view
     }
     
-    func push(to page: Branch.BranchName.FeedBranch) {
-        print(page)
+    func push(to page: CoordinatorsEnumProtocol) {
         switch page {
-        case .feed:
-            let view = FeedViewController(viewModel: branch?.viewModel as! FeedViewModel)
+        case .feed as Branch.BranchName.FeedBranch:
             (branch?.view as? UINavigationController)?.popToRootViewController(animated: true)
-        case .post:
+        case .post as Branch.BranchName.FeedBranch:
             let view = PostViewController()
+            let post = Post(title: "Post")
+            view.post = post
             (branch?.view as? UINavigationController)?.pushViewController(view, animated: true)
-        case .info:
+        case .info as Branch.BranchName.FeedBranch:
             let view = InfoViewController()
             (branch?.view as? UINavigationController)?.present(view, animated: true)
+        default:
+            return
         }
     }
-
-//    func present(_ presentation: Presentation) {
-//        switch presentation {
-//        case .post:
-//            let post = Post(title: "Post")
-//
-//            let postVC = PostViewController()
-////            postVC.coordinator = self
-//            postVC.post = post
-//
-////            feedNC.pushViewController(postVC, animated: true)
-//        case .info:
-//            let infoVC = InfoViewController()
-//            feedNC.present(infoVC, animated: true, completion: nil)
-//        }
-//    }
 }

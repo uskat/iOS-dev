@@ -3,20 +3,17 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    public var centerXProfileImage = NSLayoutConstraint()
-    public var centerYProfileImage = NSLayoutConstraint()
-    public var topProfileImage = NSLayoutConstraint()
-    public var leadingProfileImage = NSLayoutConstraint()
-    public var trailingProfileImage = NSLayoutConstraint()
-    public var bottomProfileImage = NSLayoutConstraint()
-    public var widthProfileImage = NSLayoutConstraint()
-    public var heightProfileImage = NSLayoutConstraint()
+    private var topProfileImage = NSLayoutConstraint()
+    private var leadingProfileImage = NSLayoutConstraint()
+    private var trailingProfileImage = NSLayoutConstraint()
+    private var widthProfileImage = NSLayoutConstraint()
+    private var heightProfileImage = NSLayoutConstraint()
     
-    var statusText = "Waiting for something....."
-    let space: CGFloat = 16
+    private var statusText = "Waiting for something....."
+    private let space: CGFloat = 16
     
     //MARK: - ITEMs
-    let viewUnderImage: UIView = {
+    private let viewUnderImage: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = .clear
         $0.alpha = 0.0
@@ -66,7 +63,7 @@ class ProfileHeaderView: UIView {
         return status
     }()
     
-    lazy var editStatus: UITextField = {
+    private lazy var editStatus: UITextField = {
         let status = UITextField()
         status.translatesAutoresizingMaskIntoConstraints = false
         status.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -175,7 +172,7 @@ class ProfileHeaderView: UIView {
         rotateAndSleep(0) ///прячем вспомогательную кнопку без анимации
     }
     
-    func hideKbd() {
+    private func hideKbd() {
         editStatus.endEditing(true)
     }
     
@@ -196,7 +193,7 @@ class ProfileHeaderView: UIView {
         rotateAndSleep(1) ///прячем вспомогательную кнопку с анимацией (после нажатия на неё)
     }
     
-    func showProfileHeaderView() {
+    private func showProfileHeaderView() {
         [profileLabel, mainButton, profileStatus, editStatus, buttonAccept].forEach { self.addSubview($0) }
         
         NSLayoutConstraint.activate([
@@ -268,7 +265,7 @@ class ProfileHeaderView: UIView {
     }
 
     //MARK: жесты и анимация
-    func tapGestureOnProfileImage() {
+    private func tapGestureOnProfileImage() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnImage))
         profileImage.addGestureRecognizer(tapGesture)
     }

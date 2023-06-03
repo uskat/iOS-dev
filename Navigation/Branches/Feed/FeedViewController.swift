@@ -5,7 +5,6 @@ class FeedViewController: UIViewController {
     
 //MARK: - ITEMs
     private let viewModel: FeedViewModel
-//    weak var coordinator: CoordinatorProtocol?
      var colorOfPassCheck: UIColor = .black
 //    private let newPost = Post(title: "Post")
     
@@ -68,7 +67,7 @@ class FeedViewController: UIViewController {
     
     private lazy var feedButton2: CustomButton = {
         let button = CustomButton(
-            title: "прямой переход в Профайл, без логин",
+            title: "Post opening",
             titleHighlighted: "Post opening...",
             titleColor: .green,
             titleHighlightedColor: .lightGray,
@@ -79,7 +78,6 @@ class FeedViewController: UIViewController {
     //MARK: - INITs
     init(viewModel: FeedViewModel) {
         self.viewModel = viewModel
-//        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -97,19 +95,10 @@ class FeedViewController: UIViewController {
 //MARK: - METHODs
     private func tapFeedButton() {
         viewModel.load(to: .post)
-//        postVC.post = newPost
-//        navigationController?.pushViewController(postVC, animated: true)
-//        self.coordinator?.present(FeedCoordinator.Presentation.post)
     }
     
     private func tapFeedButton2() {
-        viewModel.load(to: .feed)
-        
-//        let postVC = PostViewController()
-//        postVC.post = newPost
-//        navigationController?.pushViewController(postVC, animated: true)
-//        let postVC = ProfileViewController()
-//        navigationController?.pushViewController(postVC, animated: true)
+        viewModel.load(to: .info)
     }
     
     private func showItems() {

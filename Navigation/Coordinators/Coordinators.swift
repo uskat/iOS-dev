@@ -22,6 +22,10 @@ class Coordinators: CoordinatorsProtocol {
             feedCoordinator.start(),
             profileCoordinator.start() //(authKey: false)
         ]
+        
+        addChildCoordinator(feedCoordinator)
+        addChildCoordinator(profileCoordinator)
+        
         return tabBarController
     }
     
@@ -30,20 +34,18 @@ class Coordinators: CoordinatorsProtocol {
         let profileCoordinator = ProfileCoordinator(branchName: .profile(controller: .profile), factory: factory)
         
         tabBarController.viewControllers = [
-//            feedCoordinator.setup(),
             feedCoordinator.start(),
             profileCoordinator.start() //(authKey: authKey)
         ]
         return tabBarController
     }
     
-//    //из лекции
-//    func addChildCoordinator(_ coordinator: CoordinatorsProtocol) {
-//        guard !listOfCoordinators.contains(where: { $0 === coordinator }) else { return }
-//        listOfCoordinators.append(coordinator)
-//    }
-//    
-//    func removeChildCoordinator(_ coordinator: CoordinatorsProtocol) {
-//        listOfCoordinators = listOfCoordinators.filter { $0 === coordinator }
-//    }
+    func addChildCoordinator(_ coordinator: CoordinatorsProtocol) {
+        guard !childCoordinators.contains(where: { $0 === coordinator }) else { return }
+        childCoordinators.append(coordinator)
+    }
+    
+    func removeChildCoordinator(_ coordinator: CoordinatorsProtocol) {
+        childCoordinators = childCoordinators.filter { $0 === coordinator }
+    }
 }

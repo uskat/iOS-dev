@@ -4,23 +4,26 @@ import UIKit
 protocol ViewModelProtocol: AnyObject {
 }
 
+protocol CoordinatorsEnumProtocol {
+}
+
 struct Branch {
     enum BranchName {
         case feed(controller: FeedBranch)
         case profile(controller: ProfileBranch)
         
-        enum FeedBranch {
+        enum FeedBranch: CoordinatorsEnumProtocol {
             case feed
             case post
             case info
         }
         
-        enum ProfileBranch {
+        enum ProfileBranch: CoordinatorsEnumProtocol {
             case login
             case profile
             case postDetailed
             case photoCollection
-            case photoDetailed
+//            case photoDetailed
         }
     }
     

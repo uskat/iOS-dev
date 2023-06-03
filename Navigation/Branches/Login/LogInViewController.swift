@@ -3,9 +3,8 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
-    let loginViewModel: LoginViewModel
+//    let loginViewModel: LoginViewModel
     let viewModel: ProfileViewModel
-//    let coordinator: ProfileCoordinator
     var loginDelegate: LoginViewControllerDelegate?
     private let notification = NotificationCenter.default ///уведомление для того чтобы отслеживать перекрытие клавиатурой UITextField
     
@@ -130,10 +129,8 @@ class LogInViewController: UIViewController {
     
     
 //MARK: - INITs
-    init(loginViewModel: LoginViewModel, viewModel: ProfileViewModel) {
-        self.loginViewModel = loginViewModel
+    init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
-//        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -157,15 +154,25 @@ class LogInViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true ///прячем NavigationBar
-        notification.addObserver(self, selector: #selector(keyboardAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
-        notification.addObserver(self, selector: #selector(keyboardDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notification.addObserver(self,
+                                 selector: #selector(keyboardAppear),
+                                 name: UIResponder.keyboardWillShowNotification,
+                                 object: nil)
+        notification.addObserver(self,
+                                 selector: #selector(keyboardDisappear),
+                                 name: UIResponder.keyboardWillHideNotification,
+                                 object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        notification.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        notification.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        notification.removeObserver(self,
+                                    name: UIResponder.keyboardWillShowNotification,
+                                    object: nil)
+        notification.removeObserver(self,
+                                    name: UIResponder.keyboardWillHideNotification,
+                                    object: nil)
     }
         
     override func viewDidAppear(_ animated: Bool) {
@@ -178,7 +185,10 @@ class LogInViewController: UIViewController {
     @objc private func keyboardAppear(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             scrollLoginView.contentInset.bottom = keyboardSize.height + 80
-            scrollLoginView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            scrollLoginView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0,
+                                                                         left: 0,
+                                                                         bottom: keyboardSize.height,
+                                                                         right: 0)
             hackersList.alpha = 1.0
         }
     }
@@ -190,7 +200,7 @@ class LogInViewController: UIViewController {
     }
         
     private func tapLoginButton() {
-        loginViewModel.statusEntry = true
+        viewModel.statusEntry = true
         
         checkInputedData(login, loginAlert)
         UIView.animate(withDuration: 4.5, delay: 0.0, options: .curveEaseOut) { [self] in
@@ -207,17 +217,16 @@ class LogInViewController: UIViewController {
         
         checkInputedData(pass, passAlert)
         
-        if loginViewModel.statusEntry {
+        if viewModel.statusEntry {
             if let login = login.text, let pass = pass.text {
-                if let loginDelegate = loginDelegate?.check(login: login, pass: pass, user: viewModel.userService.checkUser(login)) {
+                if let loginDelegate = loginDelegate?.check(login: login,
+                                                            pass: pass,
+                                                            user: viewModel.userService.checkUser(login)) {
                     if loginDelegate {
                         let profileVC = ProfileViewController(viewModel: viewModel)
                         viewModel.user = viewModel.userService.checkUser(login)
-                        navigationController?.pushViewController(profileVC, animated: true)
-//                        let coos = Coordinators()
-//                        coos.reload(authKey: true)
-//                        UIApplication.shared.sceneDelegate?.auth()
-
+                        viewModel.load(to: .profile)
+//                        navigationController?.pushViewController(profileVC, animated: true)
                         self.login.text = ""
                         self.pass.text = ""
                     } else {
@@ -230,8 +239,11 @@ class LogInViewController: UIViewController {
     }
 
     private func alertOfIncorrectLoginOrPass() {
-        let alert = UIAlertController(title: "Incorrect Login or Password", message: "please check your input", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Try again", style: .destructive) {
+        let alert = UIAlertController(title: "Incorrect Login or Password",
+                                      message: "please check your input",
+                                      preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Try again",
+                                   style: .destructive) {
             _ in print("Отмена")
         }
         alert.addAction(cancel)

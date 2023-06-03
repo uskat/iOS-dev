@@ -13,7 +13,6 @@ class DetailedPostViewController: UIViewController {
     
     let profileTVCell = ProfileTableViewCell()
 
- 
 //MARK: - ITEMs
     let postName: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -69,8 +68,7 @@ class DetailedPostViewController: UIViewController {
         $0.image = "❤️ ".emojiToImage()///UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(hierarchicalColor: .systemRed))
         return $0
     }(UIImageView())
-    
-    
+
 //MARK: - INITs
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,15 +77,13 @@ class DetailedPostViewController: UIViewController {
         setupLikesGestures()
     }
 
-       
-    
 //MARK: - METHODs
     @objc private func tapButtonX() {
         print("tap x")
         self.dismiss(animated: true)
     }
     
-    func setupLikesGestures() {
+    private func setupLikesGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapLike))
         likes.addGestureRecognizer(tapGesture)
     }
@@ -108,12 +104,11 @@ class DetailedPostViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 } completion: { _ in  }
             }
-            
             likes.text = "Likes: \(post.likes)"
         }
     }
     
-    func show() {
+    private func show() {
         [postName, postDescription, postImage, likes, views, buttonX, heart].forEach({ view.addSubview($0) })
         
         heartWidth = heart.widthAnchor.constraint(equalToConstant: 24)

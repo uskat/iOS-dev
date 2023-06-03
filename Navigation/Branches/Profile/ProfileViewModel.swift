@@ -3,6 +3,10 @@ import UIKit
 
 class ProfileViewModel: ViewModelProtocol {
     
+    //MARK: LoginViewModel
+    var statusEntry = true
+//    var isLogin: Bool = false
+    
     var user: User?
     var photos = Photo.addPhotos()
     weak var coordinator: ProfileCoordinator?
@@ -12,4 +16,8 @@ class ProfileViewModel: ViewModelProtocol {
 #else
     let userService = CurrentUserService.shared
 #endif
+    
+    func load(to page: Branch.BranchName.ProfileBranch) {
+        coordinator?.push(to: page)
+    }
 }

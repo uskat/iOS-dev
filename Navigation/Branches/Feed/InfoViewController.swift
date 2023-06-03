@@ -3,8 +3,6 @@ import UIKit
  
 class InfoViewController: UIViewController {
     
-//    var coordinator = FeedCoordinator()
-
 //MARK: - ITEMs
     private let infoDefaultImage: UIImageView = {
         let imageView = UIImageView()
