@@ -223,7 +223,7 @@ class LogInViewController: UIViewController {
                                                             pass: pass,
                                                             user: viewModel.userService.checkUser(login)) {
                     if loginDelegate {
-                        let profileVC = ProfileViewController(viewModel: viewModel)
+//                        let profileVC = ProfileViewController(viewModel: viewModel)
                         viewModel.user = viewModel.userService.checkUser(login)
                         viewModel.load(to: .profile)
 //                        navigationController?.pushViewController(profileVC, animated: true)

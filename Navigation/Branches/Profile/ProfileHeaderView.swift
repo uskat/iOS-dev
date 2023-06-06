@@ -131,7 +131,7 @@ class ProfileHeaderView: UIView {
     //MARK: - METHODs
     @objc private func tapButtonX() {
         print("tap x")
-        UIView.animate(withDuration: 1.5, delay: 0.0, options: .curveEaseIn) { [self] in
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseIn) { [self] in
             topProfileImage.constant = space
             leadingProfileImage.constant = space
             widthProfileImage.constant = sizeProfileImage
