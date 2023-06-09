@@ -10,6 +10,8 @@ struct Photo {
         for index in 0..<21 {
             index < 9 ? photos.append(UIImage(named: "pic0\(index + 1)")!) : photos.append(UIImage(named: "pic\(index + 1)")!)
         }
+        photos += photos
+        photos += photos
         return photos
     }
 }

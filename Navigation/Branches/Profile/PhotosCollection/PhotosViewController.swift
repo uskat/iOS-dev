@@ -7,7 +7,8 @@ class PhotosViewController: UIViewController {
     let viewModel: ProfileViewModel
 //    let coordinator: ProfileCoordinator
     let profileHeaderView = ProfileHeaderView()
-    let imagePublisherFacade = ImagePublisherFacade()
+//    let imagePublisherFacade = ImagePublisherFacade()
+    let imageProcessor = ImageProcessor()
 
 //MARK: - ITEMs
     private lazy var collectionView: UICollectionView = {
@@ -61,21 +62,22 @@ class PhotosViewController: UIViewController {
         self.navigationItem.title = "Photo Gallery"
         view.backgroundColor = .systemGray6
         showCollection()
+        restylePhotos()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        imagePublisherFacade.subscribe(self)    ///оформляем подписку на отображение фотографий в контроллере
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: viewModel.photos.count * 2, userImages: viewModel.photos) ///медленная загрузка фото
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        imagePublisherFacade.subscribe(self)    ///оформляем подписку на отображение фотографий в контроллере
+//        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: viewModel.photos.count * 2, userImages: viewModel.photos) ///медленная загрузка фото
+//    }
     
     override func viewWillLayoutSubviews() {
         self.navigationController?.isNavigationBarHidden = false
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        imagePublisherFacade.removeSubscription(for: self)   ///отменяем подписку на отображение фотографий
-        imagePublisherFacade.rechargeImageLibrary()    ///очищаем библиотеку загруженных фото
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        imagePublisherFacade.removeSubscription(for: self)   ///отменяем подписку на отображение фотографий
+//        imagePublisherFacade.rechargeImageLibrary()    ///очищаем библиотеку загруженных фото
+//    }
     
 //MARK: - METHODs
     @objc private func tapButtonX() {
@@ -175,10 +177,40 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PhotosViewController: ImageLibrarySubscriber {
-    func receive(images: [UIImage]) {
-        print("images \(images) images")
-        viewModel.photos = images
-        collectionView.reloadData()
+//extension PhotosViewController: ImageLibrarySubscriber {
+//    func receive(images: [UIImage]) {
+//        print("images \(images) images")
+//        viewModel.photos = images
+//        collectionView.reloadData()
+//    }
+//}
+
+extension PhotosViewController {
+    private func restylePhotos() {
+        let time1 = DispatchTime.now().uptimeNanoseconds
+        imageProcessor.processImagesOnThread(sourceImages: viewModel.photos, filter: .chrome, qos: .background) { [weak self] images in
+            self?.viewModel.photos = images
+                .compactMap{ $0 }
+                .map{ UIImage(cgImage: $0) }
+            DispatchQueue.main.async {
+                [weak self] in
+                self?.collectionView.reloadData()
+                let time2 = DispatchTime.now().uptimeNanoseconds
+                print("Всего затрачено времени на обработку фотографий \((time2 - time1) / 1000000000) сек.")
+            }
+        }
     }
 }
+
+/*
+ 21 photos / 63 photos:
+ 1) .fade,      .default        = 1 sec / 3 sec,  2 threads
+                .background     = 5 sec / 15 sec, 2 threads
+                .userInitiated  = 1 sec / 3 sec,  2 threads
+ 2) .chrome,    .default        = 1 sec / 3 sec,  2 threads
+                .background     = 4 sec / 15 sec, 2 threads (24 sec with intense scroll)
+                .userInitiated  = 1 sec / 3 sec,  2 threads
+ 3) .colorInvert,.default       = 1 sec / 3 sec,  2 threads
+                .background     = 5 sec / 17 sec, 2 threads
+                .userInitiated  = 1 sec / 3 sec,  2 threads
+ */

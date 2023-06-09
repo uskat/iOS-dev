@@ -134,7 +134,7 @@ extension ProfileViewController: UITableViewDelegate {
             //анимированный push-переход с эффектом fade из Photos в Photo Galery
             let photosVC = PhotosViewController(viewModel: viewModel)
             let transition = CATransition()
-            transition.duration = 2.0
+            transition.duration = 1.5
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             transition.type = CATransitionType.fade
             transition.subtype = CATransitionSubtype.fromTop

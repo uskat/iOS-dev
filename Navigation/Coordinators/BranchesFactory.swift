@@ -22,7 +22,7 @@ final class BranchesFactory {
             let viewModel = ProfileViewModel()
             let vc = LogInViewController(viewModel: viewModel)
             
-            let loginInspector = MyLoginFactory.shared.makeLoginInspector() ///LogInDelegate
+            lazy var loginInspector = MyLoginFactory.shared.makeLoginInspector() ///LogInDelegate
             vc.loginDelegate = loginInspector ///LogInDelegate
 
             let view = UINavigationController(rootViewController: vc)
