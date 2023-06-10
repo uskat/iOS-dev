@@ -202,15 +202,3 @@ extension PhotosViewController {
     }
 }
 
-/*
- 21 photos / 63 photos:
- 1) .fade,      .default        = 1 sec / 3 sec,  2 threads
-                .background     = 5 sec / 15 sec, 2 threads
-                .userInitiated  = 1 sec / 3 sec,  2 threads
- 2) .chrome,    .default        = 1 sec / 3 sec,  2 threads
-                .background     = 4 sec / 15 sec, 2 threads (24 sec with intense scroll)
-                .userInitiated  = 1 sec / 3 sec,  2 threads
- 3) .colorInvert,.default       = 1 sec / 3 sec,  2 threads
-                .background     = 5 sec / 17 sec, 2 threads
-                .userInitiated  = 1 sec / 3 sec,  2 threads
- */

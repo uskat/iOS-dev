@@ -2,7 +2,11 @@
 import UIKit
 
 class ProfileViewModel: ViewModelProtocol {
-    
+//    
+//    enum State {
+//        case initial
+//        case enumerateChars
+//    }
     //MARK: LoginViewModel
     var statusEntry = true
 //    var isLogin: Bool = false
