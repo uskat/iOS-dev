@@ -29,11 +29,21 @@ public struct Users {
 }
 
 public var users: [Users] = [   ///профили пользователей
-    Users(userName: "11@ru.ru", password: "111111", fullName: "Obi Wan Kenobi", userImage: UIImage(named: "obiwan")!, status: "Hello, my padavan"),
-    Users(userName: "22@ru.ru", password: "222222", fullName: "Darth Vader", userImage: UIImage(named: "darthvader")!, status: "Come with me, son!"),
-    Users(userName: "33@ru.ru", password: "333333", fullName: "Master Yoda", userImage: UIImage(named: "yoda")!, status: "Fear is the path to the Dark side!"),
-    Users(userName: "44@ru.ru", password: "444444", fullName: "Imperial trooper", userImage: UIImage(named: "trooper")!, status: "These aren't the droids we're looking for!"),
-    Users(userName: "55@ru.ru", password: "", fullName: "Imperial trooper", userImage: UIImage(named: "trooper")!, status: "These aren't the droids we're looking for!"),
+    Users(userName: "11@ru.ru", password: "111111", fullName: "Obi Wan Kenobi",
+          userImage: UIImage(named: "obiwan")!,
+          status: "Hello, my padavan"),
+    Users(userName: "22@ru.ru", password: "222222", fullName: "Darth Vader",
+          userImage: UIImage(named: "darthvader")!,
+          status: "Come with me, son!"),
+    Users(userName: "33@ru.ru", password: "333333", fullName: "Master Yoda",
+          userImage: UIImage(named: "yoda")!,
+          status: "Fear is the path to the Dark side!"),
+    Users(userName: "44@ru.ru", password: "444444", fullName: "Imperial trooper",
+          userImage: UIImage(named: "trooper")!,
+          status: "These aren't the droids we're looking for!"),
+    Users(userName: "55@ru.ru", password: "", fullName: "Imperial trooper",
+          userImage: UIImage(named: "trooper")!,
+          status: "These aren't the droids we're looking for!"),
 ]
 
 //MARK: ================================== ProfileVC ==================================

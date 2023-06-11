@@ -5,7 +5,7 @@ class LogInViewController: UIViewController {
 
 //    let loginViewModel: LoginViewModel
     let viewModel: ProfileViewModel
-    let bruteForce = BruteForce()
+//    let bruteForce = BruteForce()
     var loginDelegate: LoginViewControllerDelegate?
     private let notification = NotificationCenter.default ///уведомление для того чтобы отслеживать перекрытие клавиатурой UITextField
     
@@ -130,12 +130,12 @@ class LogInViewController: UIViewController {
         return $0
     }(UILabel())
     
-    private lazy var activitySign: UIActivityIndicatorView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.style = .large
-        $0.color = UIColor.AccentColor.normal
-        return $0
-    }(UIActivityIndicatorView())
+//    private lazy var activitySign: UIActivityIndicatorView = {
+//        $0.translatesAutoresizingMaskIntoConstraints = false
+//        $0.style = .large
+//        $0.color = UIColor.AccentColor.normal
+//        return $0
+//    }(UIActivityIndicatorView())
     
     
 //MARK: - INITs
@@ -157,10 +157,10 @@ class LogInViewController: UIViewController {
             login.text = "22@ru.ru"
             pass.text = "222222"
         #else
-            login.text = "55@ru.ru"
-            pass.text = ""
+            login.text = "33@ru.ru"
+            pass.text = "333333"
         #endif
-        setupLogoGestures()
+//        setupLogoGestures() ///запуск bruteforce
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -299,7 +299,7 @@ class LogInViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollLoginView.widthAnchor)
         ])
         
-        [logoItem, activitySign, stackLogin, loginButton, errorsLabel, hackersList].forEach({ contentView.addSubview($0) })
+        [logoItem, stackLogin, loginButton, errorsLabel, hackersList].forEach({ contentView.addSubview($0) })
         loginView.addSubview(login)
         [loginView, pass].forEach({ stackLogin.addArrangedSubview($0) })
         [loginAlert, passAlert].forEach({ contentView.addSubview($0) })
@@ -320,8 +320,8 @@ class LogInViewController: UIViewController {
             stackLogin.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             stackLogin.heightAnchor.constraint(equalToConstant: 100),
             
-            activitySign.topAnchor.constraint(equalTo: logoItem.bottomAnchor, constant: 20),
-            activitySign.centerXAnchor.constraint(equalTo: logoItem.centerXAnchor),
+//            activitySign.topAnchor.constraint(equalTo: logoItem.bottomAnchor, constant: 20),
+//            activitySign.centerXAnchor.constraint(equalTo: logoItem.centerXAnchor),
 
             loginButton.topAnchor.constraint(equalTo: stackLogin.bottomAnchor, constant: 16),
             loginButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -356,46 +356,46 @@ extension LogInViewController: UITextFieldDelegate {
     }
 }
 
-extension LogInViewController {
-    private func setupLogoGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapLogo))
-        logoItem.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc private func tapLogo (){
-        users[4].password = bruteForce.generatePass()
-        print("generate new pass = \(users[4].password)")
-        
-        let queue = OperationQueue()
-        let operation = Operation()
-
-        queue.addBarrierBlock {
-            OperationQueue.main.addOperation { [weak self] in
-                self?.startIndicator()
-            }
-            self.bruteForce.findPass()
-        }
-        
-        operation.completionBlock = {
-            OperationQueue.main.addOperation { [weak self] in
-                self?.stopIndicator()
-            }
-        }
-            
-        queue.addOperation(operation)
-    }
-    
-    func startIndicator() {
-        self.activitySign.startAnimating()
-        print("animate")
-        self.activitySign.isHidden = false
-    }
-    
-    func stopIndicator() {
-        self.activitySign.stopAnimating()
-        print("stop animate")
-        self.activitySign.isHidden = true
-        self.pass.isSecureTextEntry = false
-        self.pass.text = self.bruteForce.password
-    }
-}
+//extension LogInViewController {
+//    private func setupLogoGestures() {
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapLogo))
+//        logoItem.addGestureRecognizer(tapGesture)
+//    }
+//
+//    @objc private func tapLogo (){
+//        users[4].password = bruteForce.generatePass()
+//        print("generate new pass = \(users[4].password)")
+//
+//        let queue = OperationQueue()
+//        let operation = Operation()
+//
+//        queue.addBarrierBlock {
+//            OperationQueue.main.addOperation { [weak self] in
+//                self?.startIndicator()
+//            }
+//            self.bruteForce.findPass()
+//        }
+//
+//        operation.completionBlock = {
+//            OperationQueue.main.addOperation { [weak self] in
+//                self?.stopIndicator()
+//            }
+//        }
+//
+//        queue.addOperation(operation)
+//    }
+//
+//    func startIndicator() {
+//        self.activitySign.startAnimating()
+//        print("animate")
+//        self.activitySign.isHidden = false
+//    }
+//
+//    func stopIndicator() {
+//        self.activitySign.stopAnimating()
+//        print("stop animate")
+//        self.activitySign.isHidden = true
+//        self.pass.isSecureTextEntry = false
+//        self.pass.text = self.bruteForce.password
+//    }
+//}

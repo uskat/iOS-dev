@@ -1,5 +1,6 @@
 
 import UIKit
+import iOSIntPackage
 
 class ProfileHeaderView: UIView {
     
@@ -11,11 +12,15 @@ class ProfileHeaderView: UIView {
     
     private var statusText = "Waiting for something....."
     private let space: CGFloat = 16
+    var timer: Timer?
+    var timer1: Timer?
+    var counter: Float = 0.0
     
     //MARK: - ITEMs
     private let viewUnderImage: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = .clear
+        $0.isUserInteractionEnabled = false
         $0.alpha = 0.0
         return $0
     }(UIView())
@@ -114,6 +119,25 @@ class ProfileHeaderView: UIView {
     }(UIButton())
     //======================================================================================================
     
+    private lazy var yodaPhrase: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.text = "ЖИ-ШИ ПИШИ С БУКВОЙ И..."
+        $0.textColor = .yellow
+        $0.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 22)
+        $0.alpha = 0.0
+        return $0
+    }(UILabel())
+    
+    private lazy var yodaTimer: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.text = ""
+        $0.textColor = .yellow
+        $0.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 40)
+        $0.alpha = 0.0
+        return $0
+    }(UILabel())
+    
+    
     //MARK: - INITs
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -147,6 +171,9 @@ class ProfileHeaderView: UIView {
                 self.buttonX.isHidden = true
             }
         }
+        
+        timer?.invalidate()
+        timer1?.invalidate()
     }
     
     @objc private func tapMainButton() {
@@ -223,7 +250,7 @@ class ProfileHeaderView: UIView {
             buttonAccept.heightAnchor.constraint(equalToConstant: 30)
         ])
        
-        [viewUnderImage, profileImage, buttonX].forEach { self.addSubview($0) }
+        [viewUnderImage, profileImage, buttonX, yodaPhrase, yodaTimer].forEach { self.addSubview($0) }
         viewUnderImage.addSubview(blurBackgroundEffect())
                
         topProfileImage = profileImage.topAnchor.constraint(equalTo: viewUnderImage.topAnchor, constant: space)
@@ -272,6 +299,7 @@ class ProfileHeaderView: UIView {
 
     @objc private func tapOnImage() {
         print("tap")
+        
         UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseOut) { [self] in
             viewUnderImage.addSubview(blurBackgroundEffect())
             if (UIScreen.main.bounds.height > UIScreen.main.bounds.width) {
@@ -296,6 +324,22 @@ class ProfileHeaderView: UIView {
                 buttonX.alpha = 1.0
             } completion: { _ in  }
         }
+        
+        let imageProcessor = ImageProcessor()
+        imageProcessor.processImage(sourceImage: UIImage(named: "yoda")!, filter: .bloom(intensity: 5.0)) {
+            self.profileImage.image = $0
+            self.flyingLabel()
+        }
+
+        timer1 = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false, block: { _ in
+            self.profileImage.image = UIImage(named: "yoda") ?? UIImage()
+            self.counter = 0.0
+        })
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
+            self.counter += 0.1
+            self.yodaTimer.text = String(format: "%.1f", self.counter) + "сек"
+        })
     }
     
     func blurBackgroundEffect() -> UIVisualEffectView {
@@ -305,5 +349,36 @@ class ProfileHeaderView: UIView {
         effect.translatesAutoresizingMaskIntoConstraints = false
         effect.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return effect
+    }
+}
+
+extension ProfileHeaderView {
+    private func flyingLabel() {
+        self.yodaPhrase.alpha = 1.0
+        self.yodaTimer.alpha = 1.0
+        self.yodaTimer.text = "10.0"
+        var phraseXconstraint = self.yodaPhrase.leadingAnchor.constraint(equalTo: self.profileImage.leadingAnchor, constant: 6)
+        var phraseYconstraint = self.yodaPhrase.bottomAnchor.constraint(equalTo: self.profileImage.bottomAnchor, constant: -200)
+        var timerXconstraint = self.yodaTimer.centerXAnchor.constraint(equalTo: self.profileImage.centerXAnchor)
+        var timerYconstraint = self.yodaTimer.bottomAnchor.constraint(equalTo: self.profileImage.bottomAnchor, constant: -6)
+        NSLayoutConstraint.activate([phraseXconstraint, phraseYconstraint, timerXconstraint, timerYconstraint])
+        self.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 7.0, delay: 0.0, options: .curveEaseOut) { [self] in
+            phraseXconstraint.constant += 100
+            phraseYconstraint.constant += -150
+            self.yodaPhrase.alpha = 0.5
+            self.yodaTimer.alpha = 0.5
+            self.layoutIfNeeded()
+        } completion: { _ in
+            UIView.animate(withDuration: 2.5, delay: 0.0, options: .curveLinear) { [weak self] in
+                self?.yodaPhrase.alpha = 0.0
+                self?.yodaTimer.alpha = 0.0
+                self?.yodaTimer.text = ""
+//                self.layoutIfNeeded()
+            } completion: { _ in
+                NSLayoutConstraint.deactivate([phraseXconstraint, phraseYconstraint, timerXconstraint, timerYconstraint])
+            }
+        }
     }
 }

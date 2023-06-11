@@ -271,7 +271,6 @@
 				088D472D28F9BC5C0073F086 /* LoginInspector.swift */,
 				088D472B28F8C46B0073F086 /* LoginFactory.swift */,
 				08AB23A728E79AF90062D209 /* User.swift */,
-				B69758BE2A30B65300279646 /* BruteForce.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -313,6 +312,7 @@
 		B6B085DC299141C800AA8507 /* Garbage */ = {
 			isa = PBXGroup;
 			children = (
+				B69758BE2A30B65300279646 /* BruteForce.swift */,
 				B6EE121B29DF48D300AA7FFD /* LoginViewModel.swift */,
 				08F094A52825EB62003DA7CC /* MainTabBarController.swift */,
 			);
