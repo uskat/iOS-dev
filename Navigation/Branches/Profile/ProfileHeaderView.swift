@@ -331,7 +331,7 @@ class ProfileHeaderView: UIView {
             self.flyingLabel()
         }
 
-        timer1 = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false, block: { _ in
+        timer1 = Timer.scheduledTimer(withTimeInterval: 7.0, repeats: false, block: { _ in
             self.profileImage.image = UIImage(named: "yoda") ?? UIImage()
             self.counter = 0.0
         })
@@ -356,22 +356,21 @@ extension ProfileHeaderView {
     private func flyingLabel() {
         self.yodaPhrase.alpha = 1.0
         self.yodaTimer.alpha = 1.0
-        self.yodaTimer.text = "10.0"
-        var phraseXconstraint = self.yodaPhrase.leadingAnchor.constraint(equalTo: self.profileImage.leadingAnchor, constant: 6)
-        var phraseYconstraint = self.yodaPhrase.bottomAnchor.constraint(equalTo: self.profileImage.bottomAnchor, constant: -200)
-        var timerXconstraint = self.yodaTimer.centerXAnchor.constraint(equalTo: self.profileImage.centerXAnchor)
-        var timerYconstraint = self.yodaTimer.bottomAnchor.constraint(equalTo: self.profileImage.bottomAnchor, constant: -6)
+        let phraseXconstraint = self.yodaPhrase.leadingAnchor.constraint(equalTo: self.profileImage.leadingAnchor, constant: 6)
+        let phraseYconstraint = self.yodaPhrase.bottomAnchor.constraint(equalTo: self.profileImage.bottomAnchor, constant: -200)
+        let timerXconstraint = self.yodaTimer.centerXAnchor.constraint(equalTo: self.profileImage.centerXAnchor)
+        let timerYconstraint = self.yodaTimer.bottomAnchor.constraint(equalTo: self.profileImage.bottomAnchor, constant: -6)
         NSLayoutConstraint.activate([phraseXconstraint, phraseYconstraint, timerXconstraint, timerYconstraint])
         self.layoutIfNeeded()
         
-        UIView.animate(withDuration: 7.0, delay: 0.0, options: .curveEaseOut) { [self] in
+        UIView.animate(withDuration: 5.0, delay: 0.0, options: .curveEaseOut) { [weak self] in
             phraseXconstraint.constant += 100
             phraseYconstraint.constant += -150
-            self.yodaPhrase.alpha = 0.5
-            self.yodaTimer.alpha = 0.5
-            self.layoutIfNeeded()
+            self?.yodaPhrase.alpha = 0.5
+            self?.yodaTimer.alpha = 0.5
+            self?.layoutIfNeeded()
         } completion: { _ in
-            UIView.animate(withDuration: 2.5, delay: 0.0, options: .curveLinear) { [weak self] in
+            UIView.animate(withDuration: 1.8, delay: 0.0, options: .curveLinear) { [weak self] in
                 self?.yodaPhrase.alpha = 0.0
                 self?.yodaTimer.alpha = 0.0
                 self?.yodaTimer.text = ""

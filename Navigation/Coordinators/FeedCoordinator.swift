@@ -42,7 +42,7 @@ final class FeedCoordinator: CoordinatorProtocol {
         case .feed as Branch.BranchName.FeedBranch:
             (branch?.view as? UINavigationController)?.popToRootViewController(animated: true)
         case .post as Branch.BranchName.FeedBranch:
-            let view = PostViewController()
+            let view = PostViewController(viewModel: (branch?.viewModel as! FeedViewModel))
             let post = Post(title: "Post")
             view.post = post
             (branch?.view as? UINavigationController)?.pushViewController(view, animated: true)
