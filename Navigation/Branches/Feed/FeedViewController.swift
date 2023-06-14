@@ -1,5 +1,7 @@
 
 import UIKit
+import AVFoundation
+import AVKit
 
 class FeedViewController: UIViewController {
     
@@ -7,7 +9,7 @@ class FeedViewController: UIViewController {
     private let viewModel: FeedViewModel
      var colorOfPassCheck: UIColor = .black
 //    private let newPost = Post(title: "Post")
-    
+
     private lazy var headline: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = UIFont.systemFont(ofSize: 20, weight: .regular)
@@ -67,8 +69,8 @@ class FeedViewController: UIViewController {
     
     private lazy var feedButton2: CustomButton = {
         let button = CustomButton(
-            title: "Post opening",
-            titleHighlighted: "Post opening...",
+            title: "Open videoplayer",
+            titleHighlighted: "video opening...",
             titleColor: .green,
             titleHighlightedColor: .lightGray,
             tapAction: { [weak self] in self?.tapFeedButton2() })
@@ -98,7 +100,18 @@ class FeedViewController: UIViewController {
     }
     
     private func tapFeedButton2() {
-        viewModel.load(to: .info)
+        // Создаём AVPlayer со ссылкой на видео.
+        let player = AVPlayer(url: viewModel.localURL)
+
+        // Создаём AVPlayerViewController и передаём ссылку на плеер.
+        let controller = AVPlayerViewController()
+        controller.player = player
+
+        // Показываем контроллер модально и запускаем плеер.
+        present(controller, animated: true) {
+            player.play()
+        }
+//        viewModel.load(to: .info)
     }
     
     private func showItems() {

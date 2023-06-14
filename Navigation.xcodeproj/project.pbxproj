@@ -48,6 +48,13 @@
 		08F094A82825EB7D003DA7CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F094A72825EB7D003DA7CC /* ProfileViewController.swift */; };
 		B648D26C29EE161500FDE722 /* ProfileCoordiantor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B648D26B29EE161400FDE722 /* ProfileCoordiantor.swift */; };
 		B69758BF2A30B65300279646 /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69758BE2A30B65300279646 /* BruteForce.swift */; };
+		B69758C22A375CB500279646 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = B69758C12A375CB500279646 /* YouTubeiOSPlayerHelper */; };
+		B69758C52A375D3400279646 /* GoT.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B69758C42A375D3400279646 /* GoT.mp4 */; };
+		B69758C72A375DD100279646 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69758C62A375DD100279646 /* PostTableViewCell.swift */; };
+		B69758C92A37768700279646 /* VideoPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69758C82A37768700279646 /* VideoPostView.swift */; };
+		B69758CB2A37940800279646 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69758CA2A37940800279646 /* Videos.swift */; };
+		B69758CD2A37B86100279646 /* ashoka.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B69758CC2A37B86100279646 /* ashoka.mp4 */; };
+		B69758CF2A37B86C00279646 /* clonewars.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B69758CE2A37B86C00279646 /* clonewars.mp4 */; };
 		B6EE121429DC8DC300AA7FFD /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EE121329DC8DC300AA7FFD /* UIColorExt.swift */; };
 		B6EE121629DC8E1E00AA7FFD /* UITextFieldExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EE121529DC8E1E00AA7FFD /* UITextFieldExt.swift */; };
 		B6EE121829DC904800AA7FFD /* UILabelExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EE121729DC904800AA7FFD /* UILabelExt.swift */; };
@@ -138,6 +145,12 @@
 		08F094A72825EB7D003DA7CC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B648D26B29EE161400FDE722 /* ProfileCoordiantor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordiantor.swift; sourceTree = "<group>"; };
 		B69758BE2A30B65300279646 /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
+		B69758C42A375D3400279646 /* GoT.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GoT.mp4; sourceTree = "<group>"; };
+		B69758C62A375DD100279646 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		B69758C82A37768700279646 /* VideoPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPostView.swift; sourceTree = "<group>"; };
+		B69758CA2A37940800279646 /* Videos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Videos.swift; sourceTree = "<group>"; };
+		B69758CC2A37B86100279646 /* ashoka.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ashoka.mp4; sourceTree = "<group>"; };
+		B69758CE2A37B86C00279646 /* clonewars.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = clonewars.mp4; sourceTree = "<group>"; };
 		B6EE121329DC8DC300AA7FFD /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		B6EE121529DC8E1E00AA7FFD /* UITextFieldExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExt.swift; sourceTree = "<group>"; };
 		B6EE121729DC904800AA7FFD /* UILabelExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExt.swift; sourceTree = "<group>"; };
@@ -170,6 +183,7 @@
 			files = (
 				0811151828D667E200FB41CE /* StorageService.framework in Frameworks */,
 				0875CFFC2916BEAE001D0EF0 /* iOSIntPackage in Frameworks */,
+				B69758C22A375CB500279646 /* YouTubeiOSPlayerHelper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				08F0949F2825E957003DA7CC /* Info.plist */,
+				B69758C32A375D1100279646 /* Resources */,
 				0860055529512B4800B0C954 /* Application */,
 				B6EE121129DC8BF100AA7FFD /* Model */,
 				0860055429512AB700B0C954 /* Coordinators */,
@@ -307,6 +322,16 @@
 				B6B085DC299141C800AA8507 /* Garbage */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		B69758C32A375D1100279646 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B69758C42A375D3400279646 /* GoT.mp4 */,
+				B69758CE2A37B86C00279646 /* clonewars.mp4 */,
+				B69758CC2A37B86100279646 /* ashoka.mp4 */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		B6B085DC299141C800AA8507 /* Garbage */ = {
@@ -323,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				08504B15293D16420071FF5B /* FeedModel.swift */,
+				B69758CA2A37940800279646 /* Videos.swift */,
 				0836A5BC283AEFDC007E62A4 /* Photos.swift */,
 				0836A5C028425211007E62A4 /* PublicConstants.swift */,
 				0860055B29513BEE00B0C954 /* Branch.swift */,
@@ -336,6 +362,8 @@
 				0860055F2955303B00B0C954 /* FeedViewModel.swift */,
 				08F094952825E956003DA7CC /* FeedViewController.swift */,
 				082274F32825F108000D1AD1 /* PostViewController.swift */,
+				B69758C62A375DD100279646 /* PostTableViewCell.swift */,
+				B69758C82A37768700279646 /* VideoPostView.swift */,
 				082274F52826FC60000D1AD1 /* InfoViewController.swift */,
 			);
 			path = Feed;
@@ -419,6 +447,7 @@
 			name = Navigation;
 			packageProductDependencies = (
 				0875CFFB2916BEAE001D0EF0 /* iOSIntPackage */,
+				B69758C12A375CB500279646 /* YouTubeiOSPlayerHelper */,
 			);
 			productName = Navigation;
 			productReference = 08F0948E2825E956003DA7CC /* Navigation.app */;
@@ -457,6 +486,7 @@
 			mainGroup = 08F094852825E955003DA7CC;
 			packageReferences = (
 				0875CFFA2916BEAE001D0EF0 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+				B69758C02A375CB500279646 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
 			);
 			productRefGroup = 08F0948F2825E956003DA7CC /* Products */;
 			projectDirPath = "";
@@ -488,7 +518,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B69758CD2A37B86100279646 /* ashoka.mp4 in Resources */,
+				B69758C52A375D3400279646 /* GoT.mp4 in Resources */,
 				08F0949E2825E957003DA7CC /* LaunchScreen.storyboard in Resources */,
+				B69758CF2A37B86C00279646 /* clonewars.mp4 in Resources */,
 				08F0949B2825E957003DA7CC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,6 +553,7 @@
 				08AB23A828E79AF90062D209 /* User.swift in Sources */,
 				082274F42825F108000D1AD1 /* PostViewController.swift in Sources */,
 				08F094962825E956003DA7CC /* FeedViewController.swift in Sources */,
+				B69758CB2A37940800279646 /* Videos.swift in Sources */,
 				08A6EBD4283447F1006EEA72 /* LogInViewController.swift in Sources */,
 				081113A32849792800673E53 /* LoginCheckEmail.swift in Sources */,
 				08A6EBD82835EAFF006EEA72 /* ProfileTableViewCell.swift in Sources */,
@@ -541,9 +575,11 @@
 				0836A5C128425211007E62A4 /* PublicConstants.swift in Sources */,
 				B6EE121429DC8DC300AA7FFD /* UIColorExt.swift in Sources */,
 				B69758BF2A30B65300279646 /* BruteForce.swift in Sources */,
+				B69758C92A37768700279646 /* VideoPostView.swift in Sources */,
 				B648D26C29EE161500FDE722 /* ProfileCoordiantor.swift in Sources */,
 				08F094A62825EB62003DA7CC /* MainTabBarController.swift in Sources */,
 				086005602955303B00B0C954 /* FeedViewModel.swift in Sources */,
+				B69758C72A375DD100279646 /* PostTableViewCell.swift in Sources */,
 				08F094942825E956003DA7CC /* SceneDelegate.swift in Sources */,
 				088D472E28F9BC5C0073F086 /* LoginInspector.swift in Sources */,
 				0836A5BF283BD8EB007E62A4 /* PhotosCollectionViewCell.swift in Sources */,
@@ -913,6 +949,14 @@
 				kind = branch;
 			};
 		};
+		B69758C02A375CB500279646 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/youtube/youtube-ios-player-helper.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -920,6 +964,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0875CFFA2916BEAE001D0EF0 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
 			productName = iOSIntPackage;
+		};
+		B69758C12A375CB500279646 /* YouTubeiOSPlayerHelper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B69758C02A375CB500279646 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */;
+			productName = YouTubeiOSPlayerHelper;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
