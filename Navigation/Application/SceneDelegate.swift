@@ -18,6 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIApplicationDelegate {
         let factory = BranchesFactory.shared
         let coordinators = Coordinators(factory: factory)
         self.coordinators = coordinators
+        
+        guard let appConfiguration = AppConfiguration.allConfigs.randomElement() else { return }
+        NetworkManager.request(for: appConfiguration)
 
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = coordinators.start() //tabbar
